@@ -1,13 +1,22 @@
 image: python:3.10-alpine
 
-test:
-  stage: test
+stages:
+  - build
+  - deploy
+
+variables:
+  GROUP_RUNNER_TAG: "nodejs"
+
+build:
+  stage: build
   script:
   - pip install -U sphinx
   - sphinx-build -b html . public
   rules:
     - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
-    
+  tags:
+    - $GROUP_RUNNER_TAG
+  
 pages:
   stage: deploy
   script:
@@ -18,5 +27,7 @@ pages:
     - public
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  tags:
+    - $GROUP_RUNNER_TAG
 
 
