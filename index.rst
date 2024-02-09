@@ -516,12 +516,6 @@ To tag a local image with ID "e23aaea5dff1" into the "ubuntu_wget" image name re
   docker tag e23aaea5dff1 ubuntu_wget:1.0
 
 
-More complex examples
-----------------------
-
-Check in ``containers/alba directory``
-
-
 Additional docker commands
 ==========================
 
