@@ -1,28 +1,15 @@
 image: python:3.10-alpine
 
 stages:
-  - build
   - deploy
 
 variables:
   GROUP_RUNNER_TAG: "nodejs"
 
-build:
-  stage: build
-  script:
-  - pip install sphinx && pip install sphinx-rtd-theme
-  - sphinx-build -b html . public
-  only:
-    - main
-  # rules:
-  #   - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
-  tags:
-    - $GROUP_RUNNER_TAG
-  
 pages:
   stage: deploy
   script:
-  - pip install -U sphinx
+  - pip install sphinx && pip install sphinx-rtd-theme
   - sphinx-build -b html . public
   artifacts:
     paths:
