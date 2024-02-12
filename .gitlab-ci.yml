@@ -6,14 +6,14 @@ stages:
 variables:
   GROUP_RUNNER_TAG: "nodejs"
 
-pages:
-  stage: deploy
+sphinx:
+  stage: build
   script:
   - pip install sphinx && pip install sphinx-rtd-theme
-  - sphinx-build -b html . public
+  - sphinx-build -b html . dist
   artifacts:
     paths:
-    - public
+    - dist
   # rules:
   #   - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
   only:
@@ -21,4 +21,19 @@ pages:
   tags:
     - $GROUP_RUNNER_TAG
 
+pages:
+  stage: deploy
+  script:
+    - rm -rf .public
+    - mkdir -p .public
+    - mv dist/* .public
+    - rm -rf public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+  tags:
+    - $GROUP_RUNNER_TAG
 
