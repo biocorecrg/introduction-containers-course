@@ -10,8 +10,11 @@ variables:
 sphinx:
   stage: build
   script:
+  - apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
   - pip install sphinx && pip install sphinx-rtd-theme
   - sphinx-build -b html . dist
+  - make latexpdf
+  - mv _build/latex/*.pdf dist/$CI_PROJECT_NAME.pdf
   artifacts:
     paths:
     - dist
