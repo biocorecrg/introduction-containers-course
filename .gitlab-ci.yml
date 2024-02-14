@@ -10,7 +10,7 @@ variables:
 sphinx:
   stage: build
   script:
-  - apt-get update && apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
+  - apt-get update && apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra latexmk
   - pip install sphinx && pip install sphinx-rtd-theme
   - sphinx-build -b html . dist
   - make latexpdf
