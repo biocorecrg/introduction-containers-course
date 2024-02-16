@@ -209,8 +209,18 @@ Syntax: **\--volume/-v** *host:container*
   docker run --volume $(pwd)/data:/scratch --name fastqc_container biocontainers/fastqc:v0.11.9_cv7 fastqc /scratch/B7_input_s_chr19.fastq.gz 
 
 
-docker run --user
------------------
+Volume exercises
+----------------
+
+1. Copy the 2 fastq files from available datasets in Github repository and place them in mounted directory
+
+2. Run fastqc interactively (inside container): ```fastqc  /scratch/*.gz```
+
+3. Run fastqc non-interactively (outside the container)
+
+
+docker run \--user
+------------------
 
 It is possible to run certain containers with a specific user, appending ```run \--user```.
 
@@ -219,5 +229,37 @@ A convenient command would be:
 .. code-block:: console
 
   docker run --user $(id -u):$(id -g) --volume $(pwd)/data:/scratch --name user_test biocontainers/fastqc:v0.11.9_cv7 touch /scratch/userfile
+
+
+Ports
+-----
+
+The same as with volumes, but with ports, to access Internet services.
+
+Syntax: **\--publish/-p** *host:container*
+
+
+.. code-block:: console
+
+  docker run --detach --name webserver nginx
+  curl localhost:80
+  docker exec webserver curl localhost:80
+  docker rm -f webserver
+
+.. code-block:: console
+
+  docker run --detach --name webserver --publish 80:80 nginx
+  curl localhost:80
+  docker rm -f webserver
+
+.. code-block:: console
+
+  docker run --detach --name webserver -p 8080:80 nginx
+  curl localhost:80
+  curl localhost:8080
+  docker exec webserver curl localhost:80
+  docker exec webserver curl localhost:8080
+  docker rm -f webserver
+
 
 
