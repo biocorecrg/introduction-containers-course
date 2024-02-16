@@ -121,15 +121,13 @@ Syntax: **-t** *imagename:tag*. If not defined ```:tag``` default is latest.
 
 .. code-block:: console
 
-  docker build -t mytestimage-$USER .
+  docker build -t mytestimage .
   # Same as:
-  docker build -t mytestimage-$USER:latest .
+  docker build -t mytestimage:latest .
 
 
 * IMPORTANT: Avoid contexts (directories) over-populated with files (even if not actually used in the recipe).
 In order to avoid that some directories or files are inspected or included (e.g, with COPY command in Dockerfile), you can use .dockerignore file to specify which paths should be avoided. More information at: https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/
-
-* NOTE: We use $USER bash env variable for avoiding conflicts between different users in the same machine. This is a common practice in HPC environments.
 
 The last line of installation should be **Successfully built ...**: then you are good to go.
 
@@ -142,7 +140,7 @@ Then let's check the ID of the image and run it!
   docker images
 
   docker run f9f41698e2f8
-  docker run mytestimage-$USER
+  docker run mytestimage
 
 
 More instructions
@@ -219,6 +217,65 @@ A more complex recipe (save it in a text file named **Dockerfile**):
 .. code-block:: console
 
   docker run f9f41698e2f8 https://cdn-images-1.medium.com/max/1600/1*_NQN6_YnxS29m8vFzWYlEg.png
+
+
+Docker build exercise
+---------------------
+
+* Random numbers
+
+* Copy the following short bash script in a file called random_numbers.bash.
+
+.. code-block:: console
+
+  #!/usr/bin/bash
+  seq 1 1000 | shuf | head -$1
+
+
+This script outputs random intergers from 1 to 1000: the number of integers selected is given as the first argument.
+
+* Write a recipe for an image:
+
+  * Based on `centos:8`
+
+  * That will execute this script (with bash) when it is run, giving it 2 as a default argument (i.e. outputs 2 random integers): the default can be changed as the image is run.
+
+  * Build the image.
+
+  * Start a container with the default argument, then try it with another argument.
+
+.. raw:: html
+
+  <details>
+  <summary><a>Suggested solution</a></summary>
+
+.. code-block::
+
+  FROM centos:8
+
+  # Copy script from host to image
+  COPY random_numbers.bash .
+
+  # Make script executable
+  RUN chmod +x random_numbers.bash
+
+  # As the container starts, "random_numbers.bash" is run
+  ENTRYPOINT ["/usr/bin/bash", "random_numbers.bash"]
+
+  # default argument (that can be changed on the command line)
+  CMD ["2"]
+
+Build and run:
+
+.. code-block:: console
+
+  docker build -f Dockerfile_RN -t random_numbers .
+  docker run random_numbers
+  docker run random_numbers 10
+
+.. raw:: html
+
+  </details>
 
 
 docker tag
