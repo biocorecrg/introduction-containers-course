@@ -164,6 +164,15 @@ With **\--name** you can provide a name to the container.
   docker run --name myubuntu -it ubuntu:22.04 /bin/bash
 
 
+You can run containers in detached mode (kept in the background):
+
+.. code-block:: console
+
+  docker run -it --detach ubuntu:22.04 /bin/bash
+
+  docker run --name myubuntu2 -it --detach ubuntu:22.04 /bin/bash
+
+
 docker ps: check containers status
 ----------------------------------
 
@@ -177,6 +186,51 @@ List running containers:
 List all containers (whether they are running or not):
 
 .. code-block:: console
+
+  docker ps -a
+
+
+docker exec: execute process in running container
+-------------------------------------------------
+
+.. code-block:: console
+
+  docker exec myubuntu2 uname -a
+
+
+* Interactively
+
+.. code-block:: console
+
+  docker exec -it myubuntu2 /bin/bash
+
+
+docker stop, start, restart: actions on container
+-------------------------------------------------
+
+Stop a running container:
+
+.. code-block:: console
+
+  docker stop myubuntu2
+
+  docker ps -a
+
+
+Start a stopped container (does NOT create a new one):
+
+.. code-block:: console
+
+  docker start myubuntu2
+
+  docker ps -a
+
+
+Restart a running container:
+
+.. code-block:: console
+
+  docker restart myubuntu2
 
   docker ps -a
 
@@ -222,7 +276,7 @@ Volume exercises
 docker run \--user
 ------------------
 
-It is possible to run certain containers with a specific user, appending ```run \--user```.
+It is possible to run certain containers with a specific user, appending ```run --user```.
 
 A convenient command would be:
 
