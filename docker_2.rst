@@ -1,7 +1,7 @@
 .. _docker_2-page:
 
-Build images
-=============
+Docker 2
+========
 
 OS commands in image building
 -----------------------------
@@ -232,7 +232,7 @@ To tag a local image with ID "e23aaea5dff1" into the "ubuntu_wget" image name re
 
 
 Additional docker commands
-==========================
+--------------------------
 
 * `docker commit`: Turn a container into an image
 * `docker save`: Save an image to a tar archive
@@ -245,7 +245,7 @@ Recommend workflow: If necessary, commit a Docker container into an image and th
 * Reference: https://www.baeldung.com/ops/docker-save-export
 
 Major clean
-===========
+-----------
 
 Check used space
 
