@@ -111,9 +111,9 @@ This is common in HPC environments.
 
 .. code-block:: console
 
-  # Where you have a Docker daemon running
+  \# Where you have a Docker daemon running
 	docker save -o myubuntu.tar myubuntu:latest
-  # Where you have Singularity
+  \# Where you have Singularity
   singularity build myubuntu.sif docker-archive://myubuntu.tar
 
 

@@ -122,7 +122,7 @@ Syntax: **-t** *imagename:tag*. If not defined ```:tag``` default is latest.
 .. code-block:: console
 
   docker build -t mytestimage .
-  # Same as:
+  \# Same as:
   docker build -t mytestimage:latest .
 
 
@@ -164,7 +164,7 @@ If we have a file, let's say ```example.jpg```, we can copy it.
 
 .. code-block::
 
-  # COPY source destination
+  \# COPY source destination
   COPY example.jpg .
 
 A more sophisticated case:
@@ -253,16 +253,16 @@ This script outputs random intergers from 1 to 1000: the number of integers sele
 
   FROM centos:8
 
-  # Copy script from host to image
+  \# Copy script from host to image
   COPY random_numbers.bash .
 
-  # Make script executable
+  \# Make script executable
   RUN chmod +x random_numbers.bash
 
-  # As the container starts, "random_numbers.bash" is run
+  \# As the container starts, "random_numbers.bash" is run
   ENTRYPOINT ["/usr/bin/bash", "random_numbers.bash"]
 
-  # default argument (that can be changed on the command line)
+  \# default argument (that can be changed on the command line)
   CMD ["2"]
 
 Build and run:
