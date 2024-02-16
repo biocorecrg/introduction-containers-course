@@ -1,0 +1,13 @@
+FROM centos:8
+
+# Copy script from host to image
+COPY random_numbers.bash .
+
+# Make script executable
+RUN chmod +x random_numbers.bash
+
+# As the container starts, "random_numbers.bash" is run
+ENTRYPOINT ["/usr/bin/bash", "random_numbers.bash"]
+
+# default argument (that can be changed on the command line)
+CMD ["2"]
