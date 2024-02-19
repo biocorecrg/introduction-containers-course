@@ -55,8 +55,9 @@ Search and install packages
   yum install -y libxml2-devel.x86_64
 
 
-Note the **-y** option that we set for updating and for installing.<br>
-It is an important option in the context of Docker: it means that you *answer yes to all questions* regarding installation.
+.. note::
+    The **-y** option that we set for updating and for installing.<br>
+    It is an important option in the context of Docker: it means that you *answer yes to all questions* regarding installation.
 
 
 Building recipes
@@ -126,8 +127,9 @@ Syntax: **-t** *imagename:tag*. If not defined ```:tag``` default is latest.
   docker build -t mytestimage:latest .
 
 
-* IMPORTANT: Avoid contexts (directories) over-populated with files (even if not actually used in the recipe).
-In order to avoid that some directories or files are inspected or included (e.g, with COPY command in Dockerfile), you can use .dockerignore file to specify which paths should be avoided. More information at: https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/
+.. warning:: 
+   Avoid contexts (directories) over-populated with files (even if not actually used in the recipe).
+   In order to avoid that some directories or files are inspected or included (e.g, with COPY command in Dockerfile), you can use .dockerignore file to specify which paths should be avoided. More information at: https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/
 
 The last line of installation should be **Successfully built ...**: then you are good to go.
 
@@ -325,5 +327,3 @@ Remove ALL non-running containers, images, etc. - **DO WITH MUCH MORE CARE!!!**
   docker system prune -a
 
 * Reference: https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
-
-
