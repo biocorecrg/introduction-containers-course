@@ -24,19 +24,19 @@ Using containers is time- and resource-saving as they allow:
 
 Containers allow us to use **exactly the same versions of the tools**.
 
-Virtual machines or containers ?
+Containers or virtual machines ?
 ----------------------------------
 
 =====================================================  =====================================================
-Virtualisation                                         Containerisation (aka lightweight virtualisation)
+Containerisation (aka lightweight virtualisation)      Virtualisation                                       
 =====================================================  =====================================================
-Abstraction of physical hardware                       Abstraction of application layer
-Depends on hypervisor (software)                       Depends on host kernel (OS)
-Do not confuse with hardware emulator                  Application and dependencies bundled all together
-Enable virtual machines                                Every virtual machine with an OS (Operating System)
+Abstraction of application layer                       Abstraction of physical hardware                       
+Depends on host kernel (OS)                            Depends on hypervisor (software)                       
+Application and dependencies bundled all together      Do not confuse with hardware emulator                  
+Every virtual machine with an OS (Operating System)    Enable virtual machines                                
 =====================================================  =====================================================
 
-Virtual machines vs containers
+Containers vs Virtual machines
 ----------------------------------------
 
 .. image:: https://raw.githubusercontent.com/collabnix/dockerlabs/master/beginners/docker/images/vm-docker5.png
