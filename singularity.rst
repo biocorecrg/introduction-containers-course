@@ -118,9 +118,9 @@ This is common in HPC environments.
 
 .. code-block:: console
 
-  \# Where you have a Docker daemon running
+  # Where you have a Docker daemon running
 	docker save -o myubuntu.tar myubuntu:latest
-  \# Where you have Singularity
+  # Where you have Singularity
   singularity build myubuntu.sif docker-archive://myubuntu.tar
 
 
@@ -186,17 +186,17 @@ Using the 2 fastq available files, process them using fastqc.
 
 .. code-block:: console
 
-	\# Let's create a dummy directory
+	# Let's create a dummy directory
 	mkdir data
 
-	\# Let's copy contents FASTQC files in data directory
+	# Let's copy contents FASTQC files in data directory
 
 	singularity exec fastqc.sif fastqc data/*fastq.gz
 
-	\# Check you have some HTMLs there. Remove them
+	# Check you have some HTMLs there. Remove them
 	rm data/*html
 
-	\# Let's use shell
+	# Let's use shell
 	singularity shell fastqc.sif
 	> cd data
 	> fastqc *fastq.gz
@@ -249,11 +249,11 @@ NOTE: Version at the CRG
 .. code-block::
 
   module use /software/as/el7.2/EasyBuild/CRG/modules/all
-  \# Search for modules with singularity
+  # Search for modules with singularity
 	module spider singularity
-	\# Search for modules with apptainer
+	# Search for modules with apptainer
   module spider apptainer
-  \# module load Singularity/3.7.0
+  # module load Singularity/3.7.0
   module load Apptainer/1.0.3
 
 
