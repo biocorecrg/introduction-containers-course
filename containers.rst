@@ -47,22 +47,21 @@ Containers vs Virtual machines
 
 **Pros and cons**
 
-===== ===================================================== =====================================================
-ADV   Virtualisation                                        Containerisation
-===== ===================================================== =====================================================
-PROS. * Very similar to a full OS.     			     * No need of full OS installation (less space).
-      * High OS diversity       			     * Better portability
-      							     * Faster than virtual machines.
-							     * Easier automation.
-							     * Easier distribution of recipes.
-							     * Better portability.
+===== ======================================================== =====================================================
+ADV   Containerisation                                         Virtualisation                                        
+===== ======================================================== =====================================================
+PROS. * No need of full OS installation (less space).          * Very similar to a full OS.
+      * Better portability                                     * High OS diversity 
+      * Faster than virtual machines.
+			* Easier automation.
+			* Easier distribution of recipes.
+			* Better portability.
 
 
-CONS. * Need more space and resources.                       * Some cases might not be exactly the same as a full OS.
-      * Slower than containers.                              * Still less OS diversity, even with current solutions
-      * Not that good automation.
-===== ===================================================== =====================================================
-
+CONS. * Some cases might not be exactly the same as a full OS. * Need more space and resources.
+      * Still less OS diversity, even with current solutions   * Slower than containers.
+                                                               * Not that good automation.
+===== ======================================================== =====================================================
 
 History of containers
 ----------------------
