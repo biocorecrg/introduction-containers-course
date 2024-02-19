@@ -22,14 +22,14 @@ Know your base system and their packages. Popular ones:
 Update and upgrade packages
 ***************************
 
-* In **Ubuntu**:
+* On **Ubuntu**:
 
 .. code-block::
 
   apt-get update && apt-get upgrade -y
 
 
-In **CentOS**:
+On **CentOS**:
 
 .. code-block::
 
@@ -56,7 +56,8 @@ Search and install packages
 
 
 .. note::
-    The **-y** option that we set for updating and for installing.<br>
+    The **-y** option that we set for updating and for installing.
+
     It is an important option in the context of Docker: it means that you *answer yes to all questions* regarding installation.
 
 
@@ -123,7 +124,7 @@ Syntax: **-t** *imagename:tag*. If not defined ```:tag``` default is latest.
 .. code-block:: console
 
   docker build -t mytestimage .
-  \# Same as:
+  # Same as:
   docker build -t mytestimage:latest .
 
 
@@ -166,7 +167,7 @@ If we have a file, let's say ```example.jpg```, we can copy it.
 
 .. code-block::
 
-  \# COPY source destination
+  # COPY source destination
   COPY example.jpg .
 
 A more sophisticated case:
@@ -230,7 +231,7 @@ Docker build exercise
 
 .. code-block:: console
 
-  \#!/usr/bin/bash
+  #!/usr/bin/bash
   seq 1 1000 | shuf | head -$1
 
 
@@ -255,16 +256,16 @@ This script outputs random intergers from 1 to 1000: the number of integers sele
 
   FROM centos:8
 
-  \# Copy script from host to image
+  # Copy script from host to image
   COPY random_numbers.bash .
 
-  \# Make script executable
+  # Make script executable
   RUN chmod +x random_numbers.bash
 
-  \# As the container starts, "random_numbers.bash" is run
+  # As the container starts, "random_numbers.bash" is run
   ENTRYPOINT ["/usr/bin/bash", "random_numbers.bash"]
 
-  \# default argument (that can be changed on the command line)
+  # default argument (that can be changed on the command line)
   CMD ["2"]
 
 Build and run:
@@ -279,7 +280,6 @@ Build and run:
 
   </details>
 
-
 docker tag
 -----------
 
@@ -288,6 +288,31 @@ To tag a local image with ID "e23aaea5dff1" into the "ubuntu_wget" image name re
 .. code-block:: console
 
   docker tag e23aaea5dff1 ubuntu_wget:1.0
+
+docker push
+-----------
+
+We upload our built container image into a registry. This way we can share among different users. Default is `Docker Hub <https://hub.docker.com>`_, but we can use other ones as well.
+
+As an example, we are going to use Gitlab Registry. We can use for sharing images to be used with the cluster.
+
+.. image:: /images/gitlab-deploy-container-registry.png
+  :width: 700
+
+
+.. image:: /images/gitlab-deploy-container-registry-detail.png
+  :width: 700
+
+
+We create a project on Gitlab, and then we can use the Gitlab Registry.
+
+.. code-block:: console
+
+  docker login gitlab.linux.crg.es:5005
+
+  docker build -t gitlab.linux.crg.es:5005/myusername/myproject -f Dockerfile .
+
+  docker push gitlab.linux.crg.es:5005/myusername/myproject
 
 
 Additional docker commands

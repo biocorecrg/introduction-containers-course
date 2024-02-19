@@ -83,6 +83,13 @@ Example: `https://biocontainers.pro/tools/fastqc <https://biocontainers.pro/tool
 
 	singularity build fastqc-0.11.9.sif docker://quay.io/biocontainers/fastqc:0.11.9--0
 
+**Via a private Gitlab registry**
+
+.. code-block:: console
+
+	singularity remote login --username myusername docker://gitlab.linux.crg.es:5005
+  singularity build mycontainer.sif docker://gitlab.linux.crg.es:5005/myusername/mycontainer:latest
+
 
 **Via Galaxy project prebuilt images**
 
