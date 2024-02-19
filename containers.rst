@@ -55,7 +55,6 @@ PROS. * No need of full OS installation (less space).          * Very similar to
       * Faster than virtual machines.
 			* Easier automation.
 			* Easier distribution of recipes.
-			* Better portability.
 
 
 CONS. * Some cases might not be exactly the same as a full OS. * Need more space and resources.
