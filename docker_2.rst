@@ -318,6 +318,7 @@ We create a project on Gitlab, and then we can use the Gitlab Registry.
 Additional docker commands
 --------------------------
 
+* `docker (image) inspect`: Provide details of the running container or metadata about the image
 * `docker commit`: Turn a container into an image
 * `docker save`: Save an image to a tar archive
 * `docker load`: Load an image from a tar archive
