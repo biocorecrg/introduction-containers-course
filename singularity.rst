@@ -207,6 +207,24 @@ Using the 2 fastq available files, process them using fastqc.
   </details>
 
 
+Bind paths (aka volumes)
+------------------------
+
+Paths of host system mounted in the container
+
+* Default ones, no need to mount them explicitly (for 3.6.x): ```$HOME``` , ```/sys:/sys``` , ```/proc:/proc```, ```/tmp:/tmp```, ```/var/tmp:/var/tmp```, ```/etc/resolv.conf:/etc/resolv.conf```, ```/etc/passwd:/etc/passwd```, and ```$PWD```  `Ref <https://apptainer.org/docs/user/main/bind_paths_and_mounts.html>`__
+
+For others, need to be done explicitly (syntax: host:container)
+
+.. code-block:: console
+
+    mkdir datatest
+    touch datatest/testout
+    singularity shell -e -B ./datatest:/scratch fastqc-0.11.9.sif
+    > touch /scratch/testin
+    > exit
+    ls -l testdir
+
 
 Singularity tips
 ----------------
