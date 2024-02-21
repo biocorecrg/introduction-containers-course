@@ -320,6 +320,7 @@ Additional docker commands
 
 * `docker (image) inspect`: Provide details of the running container or metadata about the image
   * Open Container Specs labels: https://specs.opencontainers.org/image-spec/annotations/
+  * LABEL tag: https://docs.docker.com/engine/reference/builder/#label
 * `docker commit`: Turn a container into an image
 * `docker save`: Save an image to a tar archive
 * `docker load`: Load an image from a tar archive
