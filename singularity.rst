@@ -243,35 +243,23 @@ Singularity permissions are an evolving field. If you don't have access to ``sud
 
 * More details at `https://apptainer.org/docs/user/main/fakeroot.html <https://apptainer.org/docs/user/main/fakeroot.html>`__
 
-Singularity cache directory
+Singularity/Apptainer cache directory
 ***************************
 
 .. code-block::
 
+    $HOME/.apptainer
     $HOME/.singularity
 
 * It stores cached images from registries, instances, etc.
 * If problems may be a good place to clean. When running ``sudo``, $HOME is /root.
 
-Global singularity configuration
+Global configuration
 ********************************
 
-Normally at ``/etc/singularity/singularity.conf`` or similar (e.g., preceded by ``/usr/local/``)
+Normally at ``/etc/apptainer/apptainer.conf`` (``/etc/singularity/singularity.conf``) or similar (e.g., preceded by ``/usr/local/``)
 
 * It can only be modified by users with administration permissions
 * Worth noting ``bind path`` lines, which point default mounted directories in containers
-
-NOTE: Version at the CRG
-************************
-
-.. code-block::
-
-  module use /software/as/el7.2/EasyBuild/CRG/modules/all
-  # Search for modules with singularity
-	module spider singularity
-	# Search for modules with apptainer
-  module spider apptainer
-  # module load Singularity/3.7.0
-  module load Apptainer/1.0.3
 
 
