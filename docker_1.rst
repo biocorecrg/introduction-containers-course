@@ -31,8 +31,6 @@ Docker components
 * Images are not run.
 * Images have several layers.
 
-.. image:: https://i.stack.imgur.com/vGuay.png
-  :width: 700
 
 Images versus containers
 ----------------------------
