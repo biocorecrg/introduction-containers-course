@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'Linux Containers Course 2024 - CRG'
+project = u'Linux Containers Course 2025 - CRG'
 
 # -- General configuration ---------------------------------------------------
 
