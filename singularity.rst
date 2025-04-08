@@ -223,7 +223,7 @@ For others, need to be done explicitly (syntax: host:container)
     singularity shell -e -B ./datatest:/scratch fastqc-0.11.9.sif
     > touch /scratch/testin
     > exit
-    ls -l testdir
+    ls -l datatest
 
 
 Singularity tips
