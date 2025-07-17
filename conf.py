@@ -17,28 +17,27 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'Linux Containers Course 2025 - CRG'
+project = "Linux Containers Course 2025 - CRG"
 
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-]
+extensions = ["sphinx-jsonschema"]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The document name of the “master” document, that is,
 # the document that contains the root toctree directive.
 # Default is 'index', we set it here for supporting Sphinx<2.0
-master_doc = 'index'
+master_doc = "index"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -48,11 +47,11 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 #
 # https://www.sphinx-doc.org/en/master/usage/theming.html#builtin-themes
 # https://sphinx-themes.org/
-html_theme = 'sphinx_rtd_theme'
+html_theme = "sphinx_rtd_theme"
 
-#html_theme_options = {
+# html_theme_options = {
 #    'nosidebar': True,
-#}
+# }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -61,6 +60,6 @@ html_theme = 'sphinx_rtd_theme'
 
 # The URL which points to the root of the HTML documentation.
 # It is used to indicate the location of document like canonical_url
-html_baseurl = 'https://courses.pages.linux.crg.es/linux-containers/'
+html_baseurl = "https://courses.pages.linux.crg.es/linux-containers/"
 
 # html_logo = html_favicon = '_images/sphinx-notes.png'
