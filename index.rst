@@ -1,5 +1,5 @@
 .. _home-page:
-.. jsonschema:: bioschema.json
+.. bioschemas:: ./bioschema.json
 
 *******************
 Linux Containers

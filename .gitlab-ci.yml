@@ -11,7 +11,7 @@ sphinx:
   stage: build
   script:
   - apt-get update && apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra latexmk
-  - pip install sphinx && pip install sphinx-rtd-theme && pip install sphinx-jsonschema
+  - pip install sphinx && pip install sphinx-rtd-theme && pip install sphinx-bioschemas
   - sphinx-build -b html . dist
   - make latexpdf
   - mv _build/latex/*.pdf dist/$CI_PROJECT_NAME.pdf
