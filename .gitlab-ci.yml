@@ -24,6 +24,7 @@ sphinx:
         echo "No tags found."
       else
         for tag in $tags; do
+          cd
           echo "=== Building docs for tag: $tag ==="
           git checkout --force "$tag"
           if [ -f docs/requirements.txt ]; then
@@ -43,6 +44,7 @@ sphinx:
       fi
     # Build 'latest' from main or master
     - |
+      cd
       echo "=== Building latest (main/master) ==="
       if git show-ref --verify --quiet refs/heads/main; then
         git checkout --force main
@@ -51,12 +53,10 @@ sphinx:
       else
         git checkout --force "$(git rev-parse --abbrev-ref HEAD || git rev-parse HEAD)"
       fi
-      ls -l
       if [ -f docs/requirements.txt ]; then
         pip install -r docs/requirements.txt
       fi
       if [ -d docs ]; then
-        echo "Starting to build"
         cd docs
         make html
         cd ..
@@ -81,7 +81,7 @@ pages:
   dependencies:
     - sphinx
   script:
-    - ls -l site/   # Debug: list files to confirm site/ exists
+    # - ls -l site/   # Debug: list files to confirm site/ exists
     - rm -rf .public
     - mkdir -p .public
     - cp -r site/* .public
