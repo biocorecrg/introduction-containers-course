@@ -76,10 +76,13 @@ sphinx:
 
 pages:
   stage: deploy
+  dependencies:
+    - sphinx
   script:
+    - ls -l   # Debug: list files to confirm site/ exists
     - rm -rf .public
     - mkdir -p .public
-    - mv site/* .public
+    - cp -r site/* .public
     - rm -rf public
     - mv .public public
   artifacts:
@@ -89,4 +92,5 @@ pages:
     - main
   tags:
     - $GROUP_RUNNER_TAG
+
 
