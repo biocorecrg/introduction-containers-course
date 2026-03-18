@@ -48,10 +48,13 @@ sphinx:
       echo $CI_PROJECT_DIR && cd $CI_PROJECT_DIR && ls -l
       echo "=== Building latest (main/master) ==="
       if git show-ref --verify --quiet refs/heads/main; then
+        echo "Main"
         git checkout --force main
       elif git show-ref --verify --quiet refs/heads/master; then
+        echo "Master"
         git checkout --force master
       else
+        echo "Other"
         git checkout --force "$(git rev-parse --abbrev-ref HEAD || git rev-parse HEAD)"
       fi
       if [ -f docs/requirements.txt ]; then
