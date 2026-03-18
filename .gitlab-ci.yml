@@ -13,7 +13,6 @@ sphinx:
     - apt-get update && apt-get install -y make git
     # Optionally install global requirements if present
     - |
-      echo $CI_PROJECT_DIR && ls -l
       if [ -f docs/requirements.txt ]; then
         pip install -r docs/requirements.txt || true
       fi
@@ -26,7 +25,6 @@ sphinx:
         echo "No tags found."
       else
         for tag in $tags; do
-          echo $CI_PROJECT_DIR && cd $CI_PROJECT_DIR
           echo "=== Building docs for tag: $tag ==="
           git checkout --force "$tag"
           if [ -f docs/requirements.txt ]; then
@@ -47,7 +45,6 @@ sphinx:
     # Build 'latest' from main or master
     - |
       git fetch --all
-      echo $CI_PROJECT_DIR && cd $CI_PROJECT_DIR && ls -l
       echo "=== Building latest (main/master) ==="
       if git show-ref --verify --quiet refs/remotes/origin/main; then
         echo "Main"
@@ -90,9 +87,10 @@ pages:
     # - ls -l site/   # Debug: list files to confirm site/ exists
     - rm -rf .public
     - mkdir -p .public
-    - cp -r site/* .public
+    - cp -r site/* .public/
     - rm -rf public
     - mv .public public
+    - ls -l public/
   artifacts:
     paths:
       - public
