@@ -12,6 +12,7 @@ sphinx:
   script:
     - apt-get update && apt-get install -y make git
     # Optionally install global requirements if present
+    - REPO=$(pwd)
     - |
       if [ -f docs/requirements.txt ]; then
         pip install -r docs/requirements.txt || true
@@ -24,7 +25,7 @@ sphinx:
         echo "No tags found."
       else
         for tag in $tags; do
-          cd
+          cd $REPO
           echo "=== Building docs for tag: $tag ==="
           git checkout --force "$tag"
           if [ -f docs/requirements.txt ]; then
@@ -44,7 +45,7 @@ sphinx:
       fi
     # Build 'latest' from main or master
     - |
-      cd
+      cd $REPO
       echo "=== Building latest (main/master) ==="
       if git show-ref --verify --quiet refs/heads/main; then
         git checkout --force main
