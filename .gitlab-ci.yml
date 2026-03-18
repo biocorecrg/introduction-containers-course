@@ -16,7 +16,7 @@ sphinx:
       if [ -f docs/requirements.txt ]; then
         pip install -r docs/requirements.txt || true
       fi
-    - mkdir -p dist
+    - mkdir -p site
     # Build docs for each tag
     - |
       tags="$(git tag -l)"
@@ -34,8 +34,8 @@ sphinx:
             make html
             cd ..
             safe_tag="$(echo "$tag" | sed 's/[^A-Za-z0-9._-]/_/g')"
-            rm -rf "dist/${safe_tag}"
-            cp -r docs/_build/html "dist/${safe_tag}"
+            rm -rf "site/${safe_tag}"
+            cp -r docs/_build/html "site/${safe_tag}"
           else
             echo "No docs directory in tag $tag, skipping."
           fi
@@ -58,17 +58,17 @@ sphinx:
         cd docs
         make html
         cd ..
-        rm -rf dist/latest
-        cp -r docs/_build/html dist/latest
+        rm -rf site/latest
+        cp -r docs/_build/html site/latest
       fi
     # Copy redirect index.html if exists
     - |
       if [ -f docs/index.html ]; then
-        cp docs/index.html dist/index.html
+        cp docs/index.html site/index.html
       fi
   artifacts:
     paths:
-      - dist
+      - site
   only:
     - main
   tags:
@@ -79,12 +79,14 @@ pages:
   script:
     - rm -rf .public
     - mkdir -p .public
-    - mv dist/* .public
+    - mv site/* .public
     - rm -rf public
     - mv .public public
   artifacts:
     paths:
       - public
+  dependencies:
+    - build
   only:
     - main
   tags:
