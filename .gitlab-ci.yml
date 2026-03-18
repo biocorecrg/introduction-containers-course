@@ -79,7 +79,7 @@ pages:
   dependencies:
     - sphinx
   script:
-    - ls -l   # Debug: list files to confirm site/ exists
+    - ls -l site/   # Debug: list files to confirm site/ exists
     - rm -rf .public
     - mkdir -p .public
     - cp -r site/* .public
