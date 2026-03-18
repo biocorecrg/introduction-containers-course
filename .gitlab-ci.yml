@@ -77,8 +77,11 @@ sphinx:
 pages:
   stage: deploy
   script:
+    - rm -rf .public
+    - mkdir -p .public
+    - mv dist/* .public
     - rm -rf public
-    - mv dist public
+    - mv .public public
   artifacts:
     paths:
       - public
