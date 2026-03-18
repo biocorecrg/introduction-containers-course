@@ -49,12 +49,12 @@ sphinx:
       git fetch --all
       echo $CI_PROJECT_DIR && cd $CI_PROJECT_DIR && ls -l
       echo "=== Building latest (main/master) ==="
-      if git show-ref --verify --quiet refs/heads/main; then
+      if git show-ref --verify --quiet refs/remotes/origin/main; then
         echo "Main"
-        git checkout --force main
-      elif git show-ref --verify --quiet refs/heads/master; then
+        git checkout --force origin/main
+      elif git show-ref --verify --quiet refs/remotes/origin/master; then
         echo "Master"
-        git checkout --force master
+        git checkout --force origin/master
       else
         echo "Other"
         git checkout --force "$(git rev-parse --abbrev-ref HEAD || git rev-parse HEAD)"
