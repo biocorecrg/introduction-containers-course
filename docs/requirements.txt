@@ -1,0 +1,7 @@
+furo
+myst-parser
+linkify-it-py
+sphinx
+sphinx-copybutton
+sphinx-bioschemas
+sphinx-togglebutton

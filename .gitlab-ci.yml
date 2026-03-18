@@ -10,16 +10,65 @@ variables:
 sphinx:
   stage: build
   script:
-  - apt-get update && apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra latexmk
-  - pip install sphinx && pip install sphinx-rtd-theme && pip install sphinx-bioschemas
-  - sphinx-build -b html . dist
-  - make latexpdf
-  - mv _build/latex/*.pdf dist/$CI_PROJECT_NAME.pdf
+    - apt-get update && apt-get install -y make git
+    # Optionally install global requirements if present
+    - |
+      if [ -f docs/requirements.txt ]; then
+        pip install -r docs/requirements.txt || true
+      fi
+    - mkdir -p dist
+    # Build docs for each tag
+    - |
+      tags="$(git tag -l)"
+      if [ -z "$tags" ]; then
+        echo "No tags found."
+      else
+        for tag in $tags; do
+          echo "=== Building docs for tag: $tag ==="
+          git checkout --force "$tag"
+          if [ -f docs/requirements.txt ]; then
+            pip install -r docs/requirements.txt
+          fi
+          if [ -d docs ]; then
+            cd docs
+            make html
+            cd ..
+            safe_tag="$(echo "$tag" | sed 's/[^A-Za-z0-9._-]/_/g')"
+            rm -rf "dist/${safe_tag}"
+            cp -r docs/_build/html "dist/${safe_tag}"
+          else
+            echo "No docs directory in tag $tag, skipping."
+          fi
+        done
+      fi
+    # Build 'latest' from main or master
+    - |
+      echo "=== Building latest (main/master) ==="
+      if git show-ref --verify --quiet refs/heads/main; then
+        git checkout --force main
+      elif git show-ref --verify --quiet refs/heads/master; then
+        git checkout --force master
+      else
+        git checkout --force "$(git rev-parse --abbrev-ref HEAD || git rev-parse HEAD)"
+      fi
+      if [ -f docs/requirements.txt ]; then
+        pip install -r docs/requirements.txt
+      fi
+      if [ -d docs ]; then
+        cd docs
+        make html
+        cd ..
+        rm -rf dist/latest
+        cp -r docs/_build/html dist/latest
+      fi
+    # Copy redirect index.html if exists
+    - |
+      if [ -f docs/index.html ]; then
+        cp docs/index.html dist/index.html
+      fi
   artifacts:
     paths:
-    - dist
-  # rules:
-  #   - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      - dist
   only:
     - main
   tags:
@@ -28,11 +77,8 @@ sphinx:
 pages:
   stage: deploy
   script:
-    - rm -rf .public
-    - mkdir -p .public
-    - mv dist/* .public
     - rm -rf public
-    - mv .public public
+    - mv dist public
   artifacts:
     paths:
       - public
