@@ -16,50 +16,121 @@
 
 
 # -- Project information -----------------------------------------------------
+import datetime
+import json
+import os
+
+import yaml
+from myst_parser import __version__
+from sphinx.application import Sphinx
+from sphinx.util.fileutil import copy_asset
 
 project = "Linux Containers Course 2026 - CRG"
+copyright = "2022-2026, Centre for Genomic Regulation (CRG)"
+author = "Toni Hermoso Pulido, Emilio Palumbo, Jose Antonio Espinosa-Carrasco"
+
+version = "2026"
+release = version
+
+# -- Matomo configuration ---------------------------------------------------
+
+matomo_url = "//stats.biocore.crg.eu/"
+matomo_site_id = "24"
+
+html_context = {
+    "matomo_url": matomo_url,
+    "matomo_site_id": matomo_site_id,
+}
+
+# Handling bioschemas
+def convert_dates(obj):
+    if isinstance(obj, dict):
+        return {k: convert_dates(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_dates(i) for i in obj]
+    elif isinstance(obj, (datetime.date, datetime.datetime)):
+        return obj.isoformat()
+    else:
+        return obj
+
+bioschemas_jsonld = None
+yaml_path = os.path.join(os.path.dirname(__file__), "bioschemas.yaml")
+if os.path.exists(yaml_path):
+    with open(yaml_path, "r") as f:
+        bioschemas_data = yaml.safe_load(f)
+    bioschemas_data = convert_dates(bioschemas_data)
+    bioschemas_jsonld = json.dumps(bioschemas_data, indent=2)
+    html_context["bioschemas_jsonld"] = bioschemas_jsonld
 
 # -- General configuration ---------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
-extensions = ["sphinx_bioschemas"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.githubpages",
+    "sphinx_bioschemas",
+    "sphinx_togglebutton",
+    "myst_parser",
+]
 
-# Add any paths that contain templates here, relative to this directory.
+source_suffix = [".rst", ".md"]
 templates_path = ["_templates"]
-
-# The document name of the “master” document, that is,
-# the document that contains the root toctree directive.
-# Default is 'index', we set it here for supporting Sphinx<2.0
-master_doc = "index"
-
-# List of patterns, relative to source directory, that match files and
-# directories to ignore when looking for source files.
-# This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-
 # -- Options for HTML output -------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
-# https://www.sphinx-doc.org/en/master/usage/theming.html#builtin-themes
-# https://sphinx-themes.org/
-html_theme = "sphinx_rtd_theme"
+html_theme = "furo"
+# html_static_path = ["_static"]
 
-# html_theme_options = {
-#    'nosidebar': True,
-# }
+html_theme_options = {
+    "footer_icons": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/biocorecrg/introduction-containers-course",
+            "html": """
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.
+23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36
+-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.
+29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            """,
+            "class": "",
+        },
+    ],
+    "source_repository": "https://github.com/biocorecrg/introduction-containers-course",
+    "source_branch": "main",
+    "source_directory": "docs/",
+}
 
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-# html_static_path = ['_static']
+myst_enable_extensions = [
+    "colon_fence",
+    "html_admonition",
+    "html_image",
+    "linkify",
+    "substitution",
+]
+myst_enable_checkboxes = True
+# myst_substitutions = {"data_version": "latest"}
 
-# The URL which points to the root of the HTML documentation.
-# It is used to indicate the location of document like canonical_url
-html_baseurl = "https://courses.pages.crg.es/linux-containers/"
 
-# html_logo = html_favicon = '_images/sphinx-notes.png'
+def copy_assets(app, exception):
+    if app.builder.name != "html" or exception:
+        return
+    for asset_dir in ["images", "data"]:
+        src = os.path.abspath(asset_dir)
+        dst = os.path.join(app.outdir, asset_dir)
+        if os.path.exists(src):
+            copy_asset(src, dst)
+
+
+def setup(app: Sphinx):
+    """Add functions to the Sphinx setup."""
+    # from myst_parser._docs import (
+    #     MystAdmonitionDirective,
+    # )
+    #
+    # app.add_directive("myst-admonitions", MystAdmonitionDirective)
+    app.connect("build-finished", copy_assets)
