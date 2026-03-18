@@ -20,6 +20,7 @@ sphinx:
     - mkdir -p site
     # Build docs for each tag
     - |
+      git fetch --all
       tags="$(git tag -l)"
       if [ -z "$tags" ]; then
         echo "No tags found."
@@ -45,6 +46,7 @@ sphinx:
       fi
     # Build 'latest' from main or master
     - |
+      git fetch --all
       echo $CI_PROJECT_DIR && cd $CI_PROJECT_DIR && ls -l
       echo "=== Building latest (main/master) ==="
       if git show-ref --verify --quiet refs/heads/main; then
