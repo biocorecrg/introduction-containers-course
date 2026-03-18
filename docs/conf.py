@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = "Linux Containers Course 2025 - CRG"
+project = "Linux Containers Course 2026 - CRG"
 
 # -- General configuration ---------------------------------------------------
 
@@ -60,6 +60,6 @@ html_theme = "sphinx_rtd_theme"
 
 # The URL which points to the root of the HTML documentation.
 # It is used to indicate the location of document like canonical_url
-html_baseurl = "https://courses.pages.linux.crg.es/linux-containers/"
+html_baseurl = "https://courses.pages.crg.es/linux-containers/"
 
 # html_logo = html_favicon = '_images/sphinx-notes.png'

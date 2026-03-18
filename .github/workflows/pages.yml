@@ -1,0 +1,106 @@
+
+name: Deploy Sphinx documentation to Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - 'docs/**'
+
+permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+jobs:
+  pages:
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # fetch full history so tags and all refs are available
+          fetch-depth: 0
+          # optionally ensure tags are fetched (fetch-depth: 0 should already include tags)
+          fetch-tags: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Prepare site directory and list tags
+        run: |
+          mkdir -p site
+          echo "Repository tags:"
+          git tag -l
+
+      - name: Build docs for every tag and latest
+        run: |
+          # Optionally install global build requirements once (faster). If requirements differ per tag,
+          # the script will attempt to install the tag-specific requirements inside the loop as well.
+          if [ -f docs/requirements.txt ]; then
+            pip install -r docs/requirements.txt || true
+          fi
+
+          # Build for each tag
+          tags="$(git tag -l)"
+          echo "$tags"
+          if [ -z "$tags" ]; then
+            echo "No tags found."
+          else
+            for tag in $tags; do
+              echo "=== Building docs for tag: $tag ==="
+              git checkout --force "$tag"
+
+              if [ -f docs/requirements.txt ]; then
+                # install tag-specific requirements (may be a no-op if already satisfied)
+                pip install -r docs/requirements.txt
+              fi
+
+              if [ -d docs ]; then
+                cd docs
+                make html
+                cd ..
+                # sanitize tag name for filesystem (replace problematic chars)
+                safe_tag="$(echo "$tag" | sed 's/[^A-Za-z0-9._-]/_/g')"
+                rm -rf "site/${safe_tag}"
+                cp -r docs/_build/html "site/${safe_tag}"
+              else
+                echo "No docs directory in tag $tag, skipping."
+              fi
+            done
+          fi
+
+          # Build 'latest' from main or master (whichever exists) and use as site/latest
+          echo "=== Building latest (main/master) ==="
+          if git show-ref --verify --quiet refs/heads/main; then
+            git checkout --force main
+          elif git show-ref --verify --quiet refs/heads/master; then
+            git checkout --force master
+          else
+            # fallback to current HEAD
+            git checkout --force "$(git rev-parse --abbrev-ref HEAD || git rev-parse HEAD)"
+          fi
+
+          if [ -f docs/requirements.txt ]; then
+            pip install -r docs/requirements.txt
+          fi
+
+          if [ -d docs ]; then
+            cd docs
+            make html
+            cd ..
+            rm -rf site/latest
+            cp -r docs/_build/html site/latest
+          fi
+      - name: Copy redirect index.html
+        run: cp docs/index.html site/index.html
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: "site"
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
