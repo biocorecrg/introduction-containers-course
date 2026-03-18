@@ -46,6 +46,8 @@ sphinx:
     # Build 'latest' from main or master
     - |
       cd $REPO
+      ls -l
+    - |
       echo "=== Building latest (main/master) ==="
       if git show-ref --verify --quiet refs/heads/main; then
         git checkout --force main
