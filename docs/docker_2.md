@@ -1,6 +1,6 @@
 # Docker 2
 
-## OS commands in image building
+## Packages for image building
 
 Depending on the underlying OS, there are different ways to build images.
 
@@ -80,7 +80,7 @@ RUN apt install -y wget
 
 ### docker build
 
-Implicitely looks for a **Dockerfile** file in the current directory:
+Implicitly looks for a **Dockerfile** file in the current directory:
 
 ```console
 docker build .
@@ -92,7 +92,7 @@ Same as:
 docker build --file Dockerfile .
 ```
 
-Syntax: **--file / -f**
+Syntax: `--file` / `-f`
 
 **.** stands for the context (in this case, current directory) of the build process. This makes sense if copying files from filesystem, for instance. **IMPORTANT**: Avoid contexts (directories) overpopulated with files (even if not actually used in the recipe).
 
@@ -199,7 +199,7 @@ docker run f9f41698e2f8 https://cdn-images-1.medium.com/max/1600/1*_NQN6_YnxS29m
 - Random numbers
 - Copy the following short bash script in a file called random_numbers.bash.
 
-```console
+```bash
 #!/usr/bin/bash
 seq 1 1000 | shuf | head -$1
 ```
@@ -271,11 +271,11 @@ As an example, we are going to use Gitlab Registry. We can use for sharing image
 We create a project on Gitlab, and then we can use the Gitlab Registry.
 
 ```console
-docker login gitlab.linux.crg.es:5005
+docker login gitlab.hpc.crg.es:5005
 
-docker build -t gitlab.linux.crg.es:5005/myusername/myproject -f Dockerfile .
+docker build -t gitlab.hpc.crg.es:5005/myusername/myproject -f Dockerfile .
 
-docker push gitlab.linux.crg.es:5005/myusername/myproject
+docker push gitlab.hpc.crg.es:5005/myusername/myproject
 ```
 
 ## Additional docker commands

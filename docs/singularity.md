@@ -74,8 +74,8 @@ singularity build fastqc-0.11.9.sif docker://quay.io/biocontainers/fastqc:0.11.9
 **Via a private Gitlab registry**
 
 ```console
-      singularity remote login --username myusername docker://gitlab.linux.crg.es:5005
-singularity build mycontainer.sif docker://gitlab.linux.crg.es:5005/myusername/mycontainer:latest
+singularity remote login --username myusername docker://gitlab.hpc.crg.es:5005
+singularity build mycontainer.sif docker://gitlab.hpc.crg.es:5005/myusername/mycontainer:latest
 ```
 
 **Via Galaxy project prebuilt images**
@@ -103,7 +103,7 @@ This is common in HPC environments.
 
 ```console
 # Where you have a Docker daemon running
-      docker save -o myubuntu.tar myubuntu:latest
+docker save -o myubuntu.tar myubuntu:latest
 # Where you have Singularity
 singularity build myubuntu.sif docker-archive://myubuntu.tar
 ```
