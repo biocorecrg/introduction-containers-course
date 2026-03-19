@@ -157,25 +157,26 @@ singularity exec -e fastqc-0.11.9.sif env
 Using the 2 FASTQ available files, process them using fastqc.
 
 :::{admonition} Suggested solution
-:class:dropdown, tip
+:class: dropdown, tip
 
 ```console
-# Let's create a dummy directory
+# Create a dummy directory
 mkdir data
 
-# Let's copy contents FASTQC files in data directory
+# Copy contents FASTQC files in data directory
 
 singularity exec fastqc.sif fastqc data/*fastq.gz
 
 # Check you have some HTMLs there. Remove them
 rm data/*html
 
-# Let's use shell
+# Use shell
 singularity shell fastqc.sif
 > cd data
 > fastqc *fastq.gz
 > exit
 ```
+
 :::
 
 ## Bind paths (aka volumes)
