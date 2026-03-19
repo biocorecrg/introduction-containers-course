@@ -1,4 +1,4 @@
-# Docker 2
+# Docker - building
 
 ## Packages for image building
 
@@ -9,7 +9,7 @@ Know your base system and their packages. Popular ones:
 - [Debian](https://packages.debian.org)
 - [CentOS](https://centos.pkgs.org/)
 - [Alpine](https://pkgs.alpinelinux.org/packages)
-- Conda. [Anaconda](https://anaconda.org/anaconda/repo), [Conda-forge](https://conda-forge.org/feedstocks/), [Bioconda](https://anaconda.org/bioconda/repo), etc.
+- Conda: [Conda-forge](https://conda-forge.org/feedstocks/), [Bioconda](https://anaconda.org/bioconda/repo), etc.
 
 ### Update and upgrade packages
 
@@ -213,10 +213,8 @@ This script outputs random intergers from 1 to 1000: the number of integers sele
   - Build the image.
   - Start a container with the default argument, then try it with another argument.
 
-```{raw} html
-<details>
-<summary><a>Suggested solution</a></summary>
-```
+:::{admonition} Suggested solution
+:class: dropdown, tip
 
 ```
 FROM centos:8
@@ -241,10 +239,7 @@ docker build -f Dockerfile_RN -t random_numbers .
 docker run random_numbers
 docker run random_numbers 10
 ```
-
-```{raw} html
-</details>
-```
+:::
 
 ## docker tag
 

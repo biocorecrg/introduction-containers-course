@@ -1,4 +1,4 @@
-# Docker 1
+# Docker
 
 ## What is Docker?
 
