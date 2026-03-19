@@ -1,2 +1,6 @@
-_build
-public
+*.pyc
+*.egg
+*.so
+*.swp
+
+docs/_build
