@@ -13,13 +13,13 @@ Know your base system and their packages. Popular ones:
 
 ### Update and upgrade packages
 
-- On **Ubuntu**:
+- On **Ubuntu/Debian**:
 
 ```
 apt-get update && apt-get upgrade -y
 ```
 
-On **CentOS**:
+On **RedHat compatible systems** (CentOS, AlmaLinux, RockyLinux):
 
 ```
 yum check-update && yum update -y
@@ -27,14 +27,14 @@ yum check-update && yum update -y
 
 ### Search and install packages
 
-- In **Ubuntu**:
+- On **Ubuntu**:
 
 ```
 apt search libxml2
 apt install -y libxml2-dev
 ```
 
-- In **CentOS**:
+- On **RedHat compatible systems**:
 
 ```
 yum search libxml2
@@ -195,6 +195,48 @@ CMD ["https://upload.wikimedia.org/wikipedia/commons/7/77/Blue_Whale_Cartoon.jpg
 docker run f9f41698e2f8 https://upload.wikimedia.org/wikipedia/commons/c/c7/Whale_Shark_AdF.jpg
 ```
 
+**ENV, ARG**: run and build environment variables
+
+Difference between ARG and ENV explained here.
+
+- ARG values: available only while the image is built.
+
+- ENV values: available during the image build process and for future running containers. 
+    - It can be checked in a resulting running container by running env.
+
+
+```dockerfile
+FROM ubuntu:22.04
+
+# Define a build-time variable
+ARG BUILD_VERSION=1.0
+
+# Set an environment variable (available at build and run time)
+ENV APP_ENV=production
+
+# Use ARG in a build step
+RUN echo "Build version is $BUILD_VERSION" > /build_version.txt
+
+# Use ENV in a build step
+RUN echo "App environment is $APP_ENV" > /app_env.txt
+
+CMD ["bash"]
+```
+
+Build with:
+```
+docker build --build-arg BUILD_VERSION=2.5 -t env-arg-example .
+```
+
+Run and check environment:
+```
+docker run --rm env-arg-example env
+```
+
+- `APP_ENV` will be visible in the running container.
+- `BUILD_VERSION` is only available during build steps.
+
+
 ## Docker build exercise
 
 - Random numbers
@@ -209,7 +251,7 @@ This script outputs random intergers from 1 to 1000: the number of integers sele
 
 - Write a recipe for an image:
 
-  - Based on `centos:8`
+  - Based on `almalinux:9`
   - That will execute this script (with bash) when it is run, giving it 2 as a default argument (i.e. outputs 2 random integers): the default can be changed as the image is run.
   - Build the image.
   - Start a container with the default argument, then try it with another argument.
@@ -218,7 +260,7 @@ This script outputs random intergers from 1 to 1000: the number of integers sele
 :class: dropdown, tip
 
 ```
-FROM centos:8
+FROM almalinux:9
 
 # Copy script from host to image
 COPY random_numbers.bash .
@@ -242,6 +284,37 @@ docker run random_numbers 10
 ```
 :::
 
+...{seealso}
+
+You can create Conda-based Docker images as well by providing your custom `environment.yml`
+
+```
+FROM mambaorg/micromamba:2.5
+COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /tmp/env.yaml
+RUN micromamba install -y -n base -f /tmp/env.yaml && \
+    micromamba clean --all --yes
+RUN rm /tmp/env.yaml
+ENV PATH=/opt/conda/bin:$PATH
+```
+...
+
+...{seealso}
+
+Seqera, the company behind Nextflow, also provides a service of [containers on demand](https://seqera.io/containers/) based on Conda and Python packages.
+...
+
+
+### Specify a default user
+
+Instead of using `root`, this can be convenient for security issues. It can be an already existing one (check the distribution) or you can create one.
+
+```dockerfile
+FROM ubuntu:24.04
+RUN useradd -m myuser
+USER myuser
+WORKDIR /home/myuser 
+```
+
 ## docker tag
 
 To tag a local image with ID "e23aaea5dff1" into the "ubuntu_wget" image name repository with version "1.0":
@@ -254,7 +327,7 @@ docker tag e23aaea5dff1 ubuntu_wget:1.0
 
 We upload our built container image into a registry. This way we can share among different users. Default is [Docker Hub](https://hub.docker.com), but we can use other ones as well.
 
-As an example, we are going to use Gitlab Registry. We can use for sharing images to be used with the cluster.
+As an example, we are going to use GitLab Registry. We can use for sharing images to be used with the cluster.
 
 ```{image} /images/gitlab-deploy-container-registry.png
 :width: 700
@@ -264,7 +337,7 @@ As an example, we are going to use Gitlab Registry. We can use for sharing image
 :width: 700
 ```
 
-We create a project on Gitlab, and then we can use the Gitlab Registry.
+We create a project on GitLab, and then we can use the GitLab Registry.
 
 ```console
 docker login gitlab.hpc.crg.es:5005
@@ -273,6 +346,12 @@ docker build -t gitlab.hpc.crg.es:5005/myusername/myproject -f Dockerfile .
 
 docker push gitlab.hpc.crg.es:5005/myusername/myproject
 ```
+
+...{tip}
+
+GitHub also provides its own [container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry). You can associated the resulting Docker image to its original code repository, for instance.
+...
+
 
 ## Additional docker commands
 

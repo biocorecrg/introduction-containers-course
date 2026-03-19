@@ -135,7 +135,7 @@ docker run ubuntu:22.04 cat /etc/issue
 
 You can either execute programs in the image from the command line (see above) or **execute a container interactively**, i.e. **"enter"** the container.
 
-With **--name** you can provide a name to the container.
+With `--name` you can provide a name to the container.
 
 ```console
 docker run -it ubuntu:22.04 /bin/bash
@@ -146,10 +146,17 @@ docker run --name myubuntu -it ubuntu:22.04 /bin/bash
 You can run containers in detached mode (kept in the background):
 
 ```console
-docker run -it --detach ubuntu:22.04 /bin/bash
+docker run --detach ubuntu:22.04 sleep infinity
 
-docker run --name myubuntu2 -it --detach ubuntu:22.04 /bin/bash
+docker run --name myubuntu2 --detach ubuntu:22.04 sleep infinity
 ```
+
+:::{note}
+
+Instead of `sleep infinity`, you can use other workarounds, such as `tail -f /dev/null` or also using docker `-it` option.
+
+:::
+
 
 ## docker ps: check containers status
 
@@ -164,6 +171,13 @@ List all containers (whether they are running or not):
 ```console
 docker ps -a
 ```
+
+We can avoid a bit of mess by using `--rm` tag when using `docker run`, so the container is automatically removed, so we don't accumulate stopped containers.
+
+```console
+docker run --rm ubuntu:22.04 /bin/ls
+```
+
 
 ## docker exec: execute process in running container
 
@@ -218,7 +232,7 @@ docker rmi ubuntu:22.04
 
 Docker containers are fully isolated. It is necessary to mount volumes in order to handle input/output files.
 
-Syntax: **--volume/-v** *host:container*
+Syntax: `--volume` / `-v` *host_path:container_port*
 
 ```console
 mkdir data
@@ -228,11 +242,11 @@ docker run --volume $(pwd)/data:/scratch --name fastqc_container biocontainers/f
 
 ### Volume exercises
 
-1. Copy the 2 fastq files from available datasets in Github repository and place them in mounted directory
-2. Run fastqc interactively (inside container): `` `fastqc  /scratch/*.gz` ``
-3. Run fastqc non-interactively (outside the container)
+1. Copy the 2 FASTQ files from available datasets in GitHub repository and place them in mounted directory
+2. Run `fastqc` interactively (inside container): `` `fastqc  /scratch/*.gz` ``
+3. Run `fastqc` non-interactively (outside the container)
 
-## Running docker as a regular user
+## Running Docker as a regular user
 
 It is possible to run certain containers with a specific user, appending `` `run --user` ``.
 
@@ -246,7 +260,9 @@ docker run --user $(id -u):$(id -g) --volume $(pwd)/data:/scratch --name user_te
 
 The same as with volumes, but with ports, to access Internet services.
 
-Syntax: `--publish` / `-p` *host:container*
+Syntax: `--publish` / `-p` *host_port:container_port*
+
+We take advantage to present also `docker inspect <container>` and `docker logs <container>`
 
 ```console
 docker run --detach --name webserver nginx
@@ -267,5 +283,21 @@ curl localhost:80
 curl localhost:8080
 docker exec webserver curl localhost:80
 docker exec webserver curl localhost:8080
+
+```
+
+We inspect and retrieve the logs of that container:
+
+```
+# We get details of the container
+docker inspect webserver | less
+
+# We see the logs of the container. Normally only make sense for background services
+docker logs webserver
+# We can follow live the changes. Similar to what we do with tail -f
+docker logs -f webserver
+
 docker rm -f webserver
 ```
+
+

@@ -1,4 +1,4 @@
-FROM centos:8
+FROM almalinux:9
 
 # Copy script from host to image
 COPY random_numbers.bash .
