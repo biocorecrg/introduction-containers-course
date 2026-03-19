@@ -55,6 +55,9 @@ Containers allow us to use **exactly the same versions of the tools**.
 :width: 550
 ```
 
+[Source](https://sysopsio.wordpress.com/2016/09/09/jails-in-linux/)
+
+
 **Additions in Linux kernel**
 
 - First version: 2008
@@ -66,3 +69,6 @@ Containers allow us to use **exactly the same versions of the tools**.
 ```{image} images/linux-vs-docker-comparison-architecture-docker-lxc.png
 :width: 600
 ```
+
+[Source](https://www.techdivision.com/en/newsroom/lxc-vs-docker)
+

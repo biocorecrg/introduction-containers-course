@@ -12,6 +12,7 @@
 :width: 800
 ```
 
+
 | Strengths                                   | Weaknesses                                        |
 | ------------------------------------------- | ------------------------------------------------- |
 | No dependency of a daemon                   | At the time of writing only good support in Linux |

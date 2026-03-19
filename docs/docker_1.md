@@ -21,6 +21,7 @@ There is an increasing number of alternative container technologies and provider
 :width: 700
 ```
 
+
 - Read-only templates.
 - Containers are run from them.
 - Images are not run.
