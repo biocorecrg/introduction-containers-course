@@ -225,13 +225,13 @@ mkdir data
 docker run --volume $(pwd)/data:/scratch --name fastqc_container biocontainers/fastqc:v0.11.9_cv7 fastqc /scratch/B7_input_s_chr19.fastq.gz
 ```
 
-## Volume exercises
+### Volume exercises
 
 1. Copy the 2 fastq files from available datasets in Github repository and place them in mounted directory
 2. Run fastqc interactively (inside container): `` `fastqc  /scratch/*.gz` ``
 3. Run fastqc non-interactively (outside the container)
 
-## docker run --user
+## Running docker as a regular user
 
 It is possible to run certain containers with a specific user, appending `` `run --user` ``.
 
