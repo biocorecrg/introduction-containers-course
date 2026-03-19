@@ -11,3 +11,6 @@ docker_1
 docker_2
 singularity
 ```
+
+```{bioschemas} ./bioschemas_course.yaml
+```

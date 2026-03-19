@@ -1,0 +1,50 @@
+"@context": "https://schema.org/"
+"@type": "Course"
+http://purl.org/dc/terms/conformsTo:
+  "@type": "CreativeWork"
+  "@id": "https://bioschemas.org/profiles/Course/1.0-RELEASE"
+description: "Introuduction to Linux containers in a scientific environment"
+keywords: "linux, reproducibility, containers, docker, singularity, apptainer"
+name: "Linux Containers"
+hasPart:
+  - "@type": "LearningResource"
+    "@id": "https://gitlab.hpc.crg.es/courses/linux-containers"
+    http://purl.org/dc/terms/conformsTo:
+      "@type": "CreativeWork"
+      "@id": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE"
+    description: "Introuduction to Linux containers in a scientific environment"
+    keywords: "linux, reproducibility, containers, docker, singularity, apptainer"
+    name: "Linux Containers"
+hasCourseInstance:
+  - "@type": "CourseInstance"
+    http://purl.org/dc/terms/conformsTo:
+      "@type": "CreativeWork"
+      "@id": "https://bioschemas.org/profiles/CourseInstance/1.0-RELEASE"
+    startDate: "2026-03-24 09:00:00 UTC"
+    endDate: "2026-03-25 12:00:00 UTC"
+    organizer:
+      name: "Centre for Genomic Regulation"
+      "@id": https://ror.org/03wyzt892
+      url: https://www.crg.eu
+      "@type": "Organization"
+    "location":
+      "@type": "Place"
+      "address": 
+        "@type": "PostalAddress"
+        streetAddress: "PRBB Buliding, Dr. Aiguader, 88"
+        addressLocality: "Barcelona"
+        addressRegion: "Catalonia"
+        addressCountry: "Spain"
+        postalCode: 08003
+      latitude: "41.384214" 
+      longitude: "2.193572"
+    inLanguage: "en"
+    instructor:
+      - "@type": "Person"
+        name: "Toni Hermoso Pulido"
+        "@id": "https://orcid.org/0000-0003-2016-6465"
+        url: "https://orcid.org/0000-0003-2016-6465"
+      - "@type": "Person"
+        name: "Emilio Palumbo"
+        "@id": "https://orcid.org/0000-0003-4599-8161"
+        url: "https://orcid.org/0000-0003-4599-8161"
