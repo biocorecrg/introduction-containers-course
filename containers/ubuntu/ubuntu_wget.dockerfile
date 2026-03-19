@@ -6,4 +6,4 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y wget
 
 ENTRYPOINT ["/usr/bin/wget"]
-CMD ["https://cdn.wp.nginx.com/wp-content/uploads/2016/07/docker-swarm-hero2.png"]
+CMD ["https://upload.wikimedia.org/wikipedia/commons/7/77/Blue_Whale_Cartoon.jpg"]

@@ -187,11 +187,12 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y wget
 
 ENTRYPOINT ["/usr/bin/wget"]
-CMD ["https://cdn.wp.nginx.com/wp-content/uploads/2016/07/docker-swarm-hero2.png"]
+CMD ["https://upload.wikimedia.org/wikipedia/commons/7/77/Blue_Whale_Cartoon.jpg"]
 ```
 
 ```console
-docker run f9f41698e2f8 https://cdn-images-1.medium.com/max/1600/1*_NQN6_YnxS29m8vFzWYlEg.png
+# Modify f9f41698e2f8 with the image you get from `docker images`
+docker run f9f41698e2f8 https://upload.wikimedia.org/wikipedia/commons/c/c7/Whale_Shark_AdF.jpg
 ```
 
 ## Docker build exercise
