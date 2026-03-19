@@ -189,10 +189,10 @@ singularity shell -e -B ./datatest:/scratch fastqc-0.11.9.sif
 ls -l datatest
 ```
 
-...{tip}
+:::{tip}
 
 Since Singularity mounts `$HOME` by default and since that directory can have a lot of user configuration files (e.g., in `.config` or `.local`), it can lead to unexpected issues (e.g., pre-installed software libraries in user directory). This can be solved using explicit `--home <CUSTOMHOME>` or even `--no-home` option.
-...
+:::
 
 ## Singularity tips
 
