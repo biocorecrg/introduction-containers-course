@@ -1,10 +1,10 @@
 # Singularity
 
 - Focus:
-  : - Reproducibility to scientific computing and the high-performance computing (HPC) world.
+    - Reproducibility in scientific and high-performance computing (HPC) world.
 - Origin: Lawrence Berkeley National Laboratory. Later spin-off: Sylabs
 - Version 1.0 (2016)
-- More information: [https://en.wikipedia.org/wiki/Singularity\_(software)](<https://en.wikipedia.org/wiki/Singularity_(software)>)
+- More information: <https://en.wikipedia.org/wiki/Apptainer>
 
 ## Singularity architecture
 
@@ -15,13 +15,13 @@
 
 | Strengths                                   | Weaknesses                                        |
 | ------------------------------------------- | ------------------------------------------------- |
-| No dependency of a daemon                   | At the time of writing only good support in Linux |
-| Can be run as a simple user                 | Mac experimental. Desktop edition. Only running   |
-| Avoids permission headaches and hacks       | For some features you need root account (or sudo) |
+| No dependency of a daemon                   | You cannot use `Dockerfile` recipes straight to build images |
+| Can be run as a simple user                 | On Windows you need use [WSL2](https://learn.microsoft.com/windows/wsl/install). In Mac, [Lima](https://lima-vm.io/)   |
+| Avoids permission headaches and hacks       | Running Docker native images can take a while first time. Need to convert to Singularity format                                                  |
 | Image/container is a file (or directory)    |                                                   |
 | More easily portable                        |                                                   |
 | Two types of images: Read-only (production) |                                                   |
-| Writable (development, via sandbox)         |                                                   |
+| Writable (development, via sandbox) - you can expose the whole filesystem of the image in a directory for that         |                                                   |
 
 **Trivia**
 
@@ -69,10 +69,10 @@ Example: [https://biocontainers.pro/tools/fastqc](https://biocontainers.pro/tool
 [https://quay.io/repository/biocontainers/fastqc](https://quay.io/repository/biocontainers/fastqc)
 
 ```console
-singularity build fastqc-0.11.9.sif docker://quay.io/biocontainers/fastqc:0.11.9--0
+singularity build fastqc-0.11.9-quay.sif docker://quay.io/biocontainers/fastqc:0.11.9--0
 ```
 
-**Via a private Gitlab registry**
+**Via a private GitLab registry**
 
 ```console
 singularity remote login --username myusername docker://gitlab.hpc.crg.es:5005
@@ -166,16 +166,8 @@ mkdir data
 
 # Copy contents FASTQC files in data directory
 
-singularity exec fastqc.sif fastqc data/*fastq.gz
+singularity exec fastqc-0.11.9.sif fastqc data/*fastq.gz
 
-# Check you have some HTMLs there. Remove them
-rm data/*html
-
-# Use shell
-singularity shell fastqc.sif
-> cd data
-> fastqc *fastq.gz
-> exit
 ```
 
 :::
@@ -197,12 +189,18 @@ singularity shell -e -B ./datatest:/scratch fastqc-0.11.9.sif
 ls -l datatest
 ```
 
+...{tip}
+
+Since Singularity mounts `$HOME` by default and since that directory can have a lot of user configuration files (e.g., in `.config` or `.local`), it can lead to unexpected issues (e.g., pre-installed software libraries in user directory). This can be solved using explicit `--home <CUSTOMHOME>` or even `--no-home` option.
+...
+
 ## Singularity tips
 
 ### Troubleshooting
 
 ```console
 singularity --help
+singularity exec --help
 ```
 
 ### Fakeroot
@@ -220,6 +218,7 @@ $HOME/.singularity
 
 - It stores cached images from registries, instances, etc.
 - If problems may be a good place to clean. When running `sudo`, \$HOME is /root.
+
 
 ### Global configuration
 
