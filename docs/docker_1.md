@@ -246,7 +246,7 @@ docker run --user $(id -u):$(id -g) --volume $(pwd)/data:/scratch --name user_te
 
 The same as with volumes, but with ports, to access Internet services.
 
-Syntax: **--publish/-p** *host:container*
+Syntax: `--publish` / `-p` *host:container*
 
 ```console
 docker run --detach --name webserver nginx
