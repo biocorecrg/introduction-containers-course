@@ -15,7 +15,7 @@
 
 | Strengths                                   | Weaknesses                                        |
 | ------------------------------------------- | ------------------------------------------------- |
-| No dependency of a daemon                   | You cannot use `Dockerfile` recipes straight to build images |
+| No dependency of a daemon                   | You cannot use `Dockerfile` recipes straight to build images (this might change in upcoming versions!) |
 | Can be run as a simple user                 | On Windows you need use [WSL2](https://learn.microsoft.com/windows/wsl/install). In Mac, [Lima](https://lima-vm.io/)   |
 | Avoids permission headaches and hacks       | Running Docker native images can take a while first time. Need to convert to Singularity format                                                  |
 | Image/container is a file (or directory)    |                                                   |
