@@ -154,12 +154,10 @@ singularity exec -e fastqc-0.11.9.sif env
 
 ### Exercise
 
-Using the 2 fastq available files, process them using fastqc.
+Using the 2 FASTQ available files, process them using fastqc.
 
-```{raw} html
-<details>
-<summary><a>Suggested solution</a></summary>
-```
+:::{admonition} Suggested solution
+:class:dropdown, tip
 
 ```console
 # Let's create a dummy directory
@@ -178,10 +176,7 @@ singularity shell fastqc.sif
 > fastqc *fastq.gz
 > exit
 ```
-
-```{raw} html
-</details>
-```
+:::
 
 ## Bind paths (aka volumes)
 
