@@ -284,7 +284,7 @@ docker run random_numbers 10
 ```
 :::
 
-...{seealso}
+:::{seealso}
 
 You can create Conda-based Docker images as well by providing your custom `environment.yml`
 
@@ -296,12 +296,12 @@ RUN micromamba install -y -n base -f /tmp/env.yaml && \
 RUN rm /tmp/env.yaml
 ENV PATH=/opt/conda/bin:$PATH
 ```
-...
+:::
 
-...{seealso}
+:::{seealso}
 
 Seqera, the company behind Nextflow, also provides a service of [containers on demand](https://seqera.io/containers/) based on Conda and Python packages.
-...
+:::
 
 
 ### Specify a default user
