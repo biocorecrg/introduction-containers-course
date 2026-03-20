@@ -8,7 +8,7 @@ keywords: "linux, reproducibility, containers, docker, singularity, apptainer"
 name: "Linux Containers"
 hasPart:
   - "@type": "LearningResource"
-    "@id": "https://gitlab.hpc.crg.es/courses/linux-containers"
+    "@id": "https://biocorecrg.github.io/introduction-containers-course"
     http://purl.org/dc/terms/conformsTo:
       "@type": "CreativeWork"
       "@id": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE"

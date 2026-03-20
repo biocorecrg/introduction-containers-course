@@ -1,9 +1,10 @@
 "@context": "https://schema.org/"
-"@type": "TrainingMaterial"
-http://purl.org/dc/terms/conformsTo:
-  "@type": "CreativeWork"
+"@type": LearningResource
+"@id": https://biocorecrg.github.io/introduction-containers-course
+"http://purl.org/dc/terms/conformsTo":
+- "@type": CreativeWork
   "@id": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE"
-"@id": "https://gitlab.hpc.crg.es/courses/linux-containers"
+"@id": "https://biocorecrg.github.io/introduction-containers-course"
 name: "Linux Containers"
 description: "Introuduction to Linux containers in a scientific environment"
 keywords: "linux, reproducibility, containers, docker, singularity, apptainer"
