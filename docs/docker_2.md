@@ -409,3 +409,10 @@ docker system prune -a
 ```
 
 - Reference: <https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes>
+
+:::{warning}
+
+We will use some of the created Docker images in the next Singularity lesson, so you might not want to remove them now!
+:::
+
+
