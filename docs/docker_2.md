@@ -288,7 +288,8 @@ docker run random_numbers 10
 
 You can create Conda-based Docker images as well by providing your custom `environment.yml`
 
-```
+**Dockerfile**
+```dockerfile
 FROM mambaorg/micromamba:2.5
 COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /tmp/env.yaml
 RUN micromamba install -y -n base -f /tmp/env.yaml && \
@@ -296,6 +297,19 @@ RUN micromamba install -y -n base -f /tmp/env.yaml && \
 RUN rm /tmp/env.yaml
 ENV PATH=/opt/conda/bin:$PATH
 ```
+
+**environment.yml**
+```yaml
+name: base
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy
+  - matplotlib
+  - scikit-learn
+```
+
 :::
 
 :::{seealso}
