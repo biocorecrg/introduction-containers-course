@@ -108,7 +108,7 @@ docker build -t mytestimage:latest .
 
 :::{warning}
 Avoid contexts (directories) over-populated with files (even if not actually used in the recipe).
-In order to avoid that some directories or files are inspected or included (e.g, with COPY command in Dockerfile), you can use .dockerignore file to specify which paths should be avoided. More information at: <https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/>
+In order to avoid that some directories or files are inspected or included (e.g, with COPY command in Dockerfile), you can use `.dockerignore` file to specify which paths should be avoided. More information at: <https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/>
 :::
 
 The last line of installation should be **Successfully built ...**: then you are good to go.
@@ -149,7 +149,7 @@ COPY example.jpg .
 
 A more sophisticated case:
 
-```
+```dockerfile
 FROM ubuntu:22.04
 
 RUN apt update && apt -y upgrade
@@ -169,7 +169,7 @@ The ENTRYPOINT specifies a command that will always be executed when the contain
 In the example below, when the container is run without an argument, it will execute `echo "hello world"`.
 If it is run with the argument **hello moon** it will execute `echo "hello moon"`
 
-```
+```dockerfile
 FROM ubuntu:22.04
 ENTRYPOINT ["/bin/echo"]
 CMD ["hello world"]
@@ -177,7 +177,7 @@ CMD ["hello world"]
 
 A more complex recipe (save it in a text file named **Dockerfile**):
 
-```
+```dockerfile
 FROM ubuntu:22.04
 
 RUN mkdir -p /downloads
@@ -259,7 +259,7 @@ This script outputs random intergers from 1 to 1000: the number of integers sele
 :::{admonition} Suggested solution
 :class: dropdown, tip
 
-```
+```dockerfile
 FROM almalinux:9
 
 # Copy script from host to image
