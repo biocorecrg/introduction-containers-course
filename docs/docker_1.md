@@ -349,6 +349,13 @@ docker run --volume $(pwd)/data:/scratch --name fastqc_container biocontainers/f
 2. Run `fastqc` interactively (inside container): `` `fastqc  /scratch/*.gz` ``
 3. Run `fastqc` non-interactively (outside the container)
 
+:::{seealso}
+
+Besides mounted volumes, Docker also supports **named volumes** and **anonymous volumes** that are not tied to a specific host path. These volumes are managed by Docker and stored in a dedicated area on the host filesystem (typically under `/var/lib/docker/volumes/`). Named volumes are useful for persisting data that needs to survive container removal without requiring you to manage the host path directly, while anonymous volumes are created automatically and are typically used for temporary data or caching.
+
+You can create and manage them using commands like `docker volume create`, `docker volume ls`, and `docker volume rm`.
+:::
+
 ## Running Docker as a regular user
 
 It is possible to run certain containers with a specific user, appending `` `run --user` ``.
