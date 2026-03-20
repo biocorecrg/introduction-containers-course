@@ -155,7 +155,7 @@ singularity exec -e fastqc-0.11.9.sif env
 
 ### Exercise
 
-Using the 2 FASTQ available files, process them using fastqc.
+Using the 2 FASTQ available files, process them using `fastqc`.
 
 :::{admonition} Suggested solution
 :class: dropdown, tip
@@ -169,16 +169,39 @@ mkdir data
 singularity exec fastqc-0.11.9.sif fastqc data/*fastq.gz
 
 ```
+:::
+
+### Singularity run
+
+The `run` subcommand is not used as commonly as `exec` in Singularity, however we can use it as well. We can reuse the **random numbers** Docker example. 
+
+```console
+# We asume we have the image random_numbers in Docker
+singularity build random_numbers.sif docker-daemon://random_numbers:latest
+
+# Run it
+singularity run random_numbers.sif
+# With an argument
+singularity run random_numbers.sif 10
+# If we try to exec it, though...
+singularity exec random_numbers.sif
+singularity exec /random_numbers.bash
+```
+
+:::{seealso}
+[Definition files](https://apptainer.org/docs/user/main/definition_files.html) (`.def`) are the equivalent of Dockerfiles, allowing you to build custom container images from scratch or from existing base images (e.g., Docker ones such as **ubuntu:22.04**). They support sections like `%post` for installation commands, `%environment` for environment variables, and `%runscript` to define the default command.
+
+The `%runscript` section defines what executes when you run `singularity run mycontainer.sif` without specifying a command. This makes containers behave like executable programs, similar to **CMD** and **ENTRYPOINT** in Docker.
 
 :::
 
 ## Bind paths (aka volumes)
 
-Paths of host system mounted in the container
+There are paths of the host system already mounted in the container
 
 - Default ones, no need to mount them explicitly: `` `$HOME` `` , `` `/sys:/sys` `` , `` `/proc:/proc` ``, `` `/tmp:/tmp` ``, `` `/var/tmp:/var/tmp` ``, `` `/etc/resolv.conf:/etc/resolv.conf` ``, `` `/etc/passwd:/etc/passwd` ``, and `` `$PWD` `` [Ref](https://apptainer.org/docs/user/main/bind_paths_and_mounts.html)
 
-For others, need to be done explicitly (syntax: host:container)
+For others, need to be done explicitly (syntax: host_path:container_path)
 
 ```console
 mkdir datatest
@@ -205,7 +228,7 @@ singularity exec --help
 
 ### Fakeroot
 
-Singularity permissions are an evolving field. If you don't have access to `sudo`, it might be worth considering using **--fakeroot/-f** parameter.
+Singularity permissions are an evolving field. If you don't have access to `sudo`, it might be worth considering using `--fakeroot` / `-f` parameter.
 
 - More details at [https://apptainer.org/docs/user/main/fakeroot.html](https://apptainer.org/docs/user/main/fakeroot.html)
 
@@ -226,3 +249,23 @@ Normally at `/etc/apptainer/apptainer.conf` (`/etc/singularity/singularity.conf`
 
 - It can only be modified by users with administration permissions
 - Worth noting `bind path` lines, which point default mounted directories in containers
+
+```
+# BIND PATH: [STRING]
+# DEFAULT: Undefined
+# Define a list of files/directories that should be made available from within
+# the container. The file or directory must exist within the container on
+# which to attach to. you can specify a different source and destination
+# path (respectively) with a colon; otherwise source and dest are the same.
+# NOTE: these are ignored if apptainer is invoked with --contain except
+# for /etc/hosts and /etc/localtime. When invoked with --contain and --net,
+# /etc/hosts would contain a default generated content for localhost resolution.
+#bind path = /etc/apptainer/default-nsswitch.conf:/etc/nsswitch.conf
+#bind path = /opt
+#bind path = /scratch
+bind path = /etc/localtime
+bind path = /etc/hosts
+# I added this
+bind path = /users
+```
+
