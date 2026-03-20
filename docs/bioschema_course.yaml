@@ -3,18 +3,15 @@
 http://purl.org/dc/terms/conformsTo:
   "@type": "CreativeWork"
   "@id": "https://bioschemas.org/profiles/Course/1.0-RELEASE"
+"@id": https://biocorecrg.github.io/introduction-containers-course
 description: "Introuduction to Linux containers in a scientific environment"
 keywords: "linux, reproducibility, containers, docker, singularity, apptainer"
 name: "Linux Containers"
-hasPart:
-  - "@type": "LearningResource"
-    "@id": "https://biocorecrg.github.io/introduction-containers-course"
-    http://purl.org/dc/terms/conformsTo:
-      "@type": "CreativeWork"
-      "@id": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE"
-    description: "Introuduction to Linux containers in a scientific environment"
-    keywords: "linux, reproducibility, containers, docker, singularity, apptainer"
-    name: "Linux Containers"
+provider:
+  name: "Centre for Genomic Regulation"
+  "@id": https://ror.org/03wyzt892
+  url: https://www.crg.eu
+inLanguage: "en"
 hasCourseInstance:
   - "@type": "CourseInstance"
     http://purl.org/dc/terms/conformsTo:
@@ -38,7 +35,6 @@ hasCourseInstance:
         postalCode: 08003
       latitude: "41.384214" 
       longitude: "2.193572"
-    inLanguage: "en"
     instructor:
       - "@type": "Person"
         name: "Toni Hermoso Pulido"
