@@ -185,7 +185,7 @@ singularity run random_numbers.sif
 singularity run random_numbers.sif 10
 # If we try to exec it, though...
 singularity exec random_numbers.sif
-singularity exec /random_numbers.bash
+singularity exec random_numbers.sif /random_numbers.bash
 ```
 
 :::{seealso}
