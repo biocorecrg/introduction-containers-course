@@ -44,8 +44,40 @@ When you start an image, you have a running container of this image. You can hav
 docker
 ```
 
-```{image} images/docker_vocab.png
-:width: 550
+```
+Usage:  docker [OPTIONS] COMMAND
+
+A self-sufficient runtime for containers
+
+Common Commands:
+  run         Create and run a new container from an image
+  exec        Execute a command in a running container
+  ps          List containers
+  build       Build an image from a Dockerfile
+  bake        Build from a file
+  pull        Download an image from a registry
+  push        Upload an image to a registry
+  images      List images
+  login       Authenticate to a registry
+  logout      Log out from a registry
+  search      Search Docker Hub for images
+  version     Show the Docker version information
+  info        Display system-wide information
+
+Management Commands:
+  builder     Manage builds
+  buildx*     Docker Buildx
+  compose*    Docker Compose
+  container   Manage containers
+  context     Manage contexts
+  image       Manage images
+  manifest    Manage Docker image manifests and manifest lists
+  model*      Docker Model Runner
+  network     Manage networks
+  plugin      Manage plugins
+  system      Manage Docker
+  volume      Manage volumes
+...
 ```
 
 Get help:
@@ -54,8 +86,37 @@ Get help:
 docker run --help
 ```
 
-```{image} images/docker_run_help.png
-:width: 550
+```
+Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Create and run a new container from an image
+
+Aliases:
+  docker container run, docker run
+
+Options:
+      --add-host list                    Add a custom host-to-IP mapping (host:ip)
+      --annotation map                   Add an annotation to the container (passed through to the OCI runtime) (default map[])
+  -a, --attach list                      Attach to STDIN, STDOUT or STDERR
+      --blkio-weight uint16              Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
+      --blkio-weight-device list         Block IO weight (relative device weight) (default [])
+      --cap-add list                     Add Linux capabilities
+      --cap-drop list                    Drop Linux capabilities
+      --cgroup-parent string             Optional parent cgroup for the container
+      --cgroupns string                  Cgroup namespace to use (host|private)
+                                         'host':    Run the container in the Docker host's cgroup namespace
+                                         'private': Run the container in its own private cgroup namespace
+                                         '':        Use the cgroup namespace as configured by the
+                                                    default-cgroupns-mode option on the daemon (default)
+      --cidfile string                   Write the container ID to the file
+      --cpu-period int                   Limit CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int                    Limit CPU CFS (Completely Fair Scheduler) quota
+      --cpu-rt-period int                Limit CPU real-time period in microseconds
+      --cpu-rt-runtime int               Limit CPU real-time runtime in microseconds
+  -c, --cpu-shares int                   CPU shares (relative weight)
+      --cpus decimal                     Number of CPUs
+      --cpuset-cpus string               CPUs in which to
+...
 ```
 
 ## Using existing images
@@ -80,8 +141,13 @@ Let's search the keyword **ubuntu**:
 docker pull ubuntu
 ```
 
-```{image} images/docker_pull.png
-:width: 650
+```
+Using default tag: latest
+latest: Pulling from library/ubuntu
+817807f3c64e: Pull complete
+Digest: sha256:186072bba1b2f436cbb91ef2567abca677337cfc786c86e107d25b7072feef0c
+Status: Downloaded newer image for ubuntu:latest
+docker.io/library/ubuntu:latest
 ```
 
 - choose the version of Ubuntu you are fetching: check the different tags
@@ -100,9 +166,25 @@ docker pull ubuntu:22.04
 docker images
 ```
 
-```{image} images/docker_images_list.png
-:width: 650
 ```
+IMAGE           ID             DISK USAGE   CONTENT SIZE   EXTRA
+ubuntu:22.04    2a8380840c2f       77.9MB             0B
+ubuntu:latest   f794f40ddfff       78.1MB             0B
+```
+
+Recently Docker changed the output format of this subcommand, to retrieve the original most detailed one output, you can do:
+
+```console
+docker images --no-trunc
+
+```
+
+```
+REPOSITORY   TAG       IMAGE ID                                                                  CREATED       SIZE
+ubuntu       22.04     sha256:2a8380840c2fad0be3c1132c6950a8989b560f572b2a17bc7907b5288ee71780   3 weeks ago   77.9MB
+ubuntu       latest    sha256:f794f40ddfff5af8ef1b39ee29eab3b5400ea70b9ebefd286812dbbe0054ad6b   3 weeks ago   78.1MB
+```
+
 
 Each image has a unique **IMAGE ID**.
 
@@ -120,9 +202,30 @@ docker run image:tag **command**
 docker run ubuntu:22.04 /bin/ls
 ```
 
-```{image} images/docker_run_ls.png
-:width: 200
 ```
+bin
+boot
+dev
+etc
+home
+lib
+lib32
+lib64
+libx32
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+```
+
 
 Now execute **ls** in your current working directory: is the result the same?
 
