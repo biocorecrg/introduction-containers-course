@@ -101,9 +101,9 @@ You can define a specific name for the image during the build process.
 Syntax: **-t** *imagename:tag*. If not defined `` `:tag` `` default is latest.
 
 ```console
-docker build -t mytestimage .
+docker build -t myubuntu .
 # Same as:
-docker build -t mytestimage:latest .
+docker build -t myubuntu:latest .
 ```
 
 :::{warning}
@@ -121,7 +121,7 @@ Then let's check the ID of the image and run it!
 docker images
 
 docker run f9f41698e2f8
-docker run mytestimage
+docker run myubuntu
 ```
 
 ### More instructions
