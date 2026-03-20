@@ -347,10 +347,10 @@ docker build -t gitlab.hpc.crg.es:5005/myusername/myproject -f Dockerfile .
 docker push gitlab.hpc.crg.es:5005/myusername/myproject
 ```
 
-...{tip}
+:::{tip}
 
 GitHub also provides its own [container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry). You can associated the resulting Docker image to its original code repository, for instance.
-...
+:::
 
 
 ## Additional docker commands
