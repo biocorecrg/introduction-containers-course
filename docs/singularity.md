@@ -109,9 +109,8 @@ docker save -o myubuntu.tar myubuntu:latest
 singularity build myubuntu.sif docker-archive://myubuntu.tar
 ```
 
-## Running and executing containers
 
-:::note
+:::{note}
 **Difference between `singularity pull` and `singularity build`:**
 
 - `singularity pull` downloads a pre-built image from a remote source (such as a registry or URL) and saves it locally. It does not build or customize the image; you get the image as-is.
@@ -124,6 +123,8 @@ singularity build myubuntu.sif docker-archive://myubuntu.tar
 **Summary:**  
 Use `pull` to fetch ready-made images; use `build` to create or convert images, or to customize them.
 :::
+
+## Running and executing containers
 
 Once we have some image files (or directories) ready, we can run processes.
 
