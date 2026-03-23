@@ -111,6 +111,20 @@ singularity build myubuntu.sif docker-archive://myubuntu.tar
 
 ## Running and executing containers
 
+:::note
+**Difference between `singularity pull` and `singularity build`:**
+
+- `singularity pull` downloads a pre-built image from a remote source (such as a registry or URL) and saves it locally. It does not build or customize the image; you get the image as-is.
+    - Example:  
+      `singularity pull fastqc-0.11.9.sif https://depot.galaxyproject.org/singularity/fastqc:0.11.9--0`
+- `singularity build` creates a new image. It allows customization and can build from scratch or from a base image.
+    - Example:  
+      `singularity build fastqc-0.11.9_cv7.sif docker://biocontainers/fastqc:v0.11.9_cv7`
+
+**Summary:**  
+Use `pull` to fetch ready-made images; use `build` to create or convert images, or to customize them.
+:::
+
 Once we have some image files (or directories) ready, we can run processes.
 
 ### Singularity shell
