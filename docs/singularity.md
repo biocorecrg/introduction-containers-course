@@ -64,7 +64,7 @@ Originally Docker Hub was used, but now other registries are preferred.
 
 Example: [https://biocontainers.pro/tools/fastqc](https://biocontainers.pro/tools/fastqc)
 
-**Via quay.io**
+### Via quay.io
 
 [https://quay.io/repository/biocontainers/fastqc](https://quay.io/repository/biocontainers/fastqc)
 
@@ -72,14 +72,14 @@ Example: [https://biocontainers.pro/tools/fastqc](https://biocontainers.pro/tool
 singularity build fastqc-0.11.9-quay.sif docker://quay.io/biocontainers/fastqc:0.11.9--0
 ```
 
-**Via a private GitLab registry**
+### Via a private GitLab registry
 
 ```console
 singularity remote login --username myusername docker://gitlab.hpc.crg.es:5005
 singularity build mycontainer.sif docker://gitlab.hpc.crg.es:5005/myusername/mycontainer:latest
 ```
 
-**Via Galaxy project prebuilt images**
+### Via Galaxy project prebuilt images
 
 ```console
 singularity pull --name fastqc-0.11.9.sif https://depot.galaxyproject.org/singularity/fastqc:0.11.9--0
@@ -88,27 +88,6 @@ singularity pull --name fastqc-0.11.9.sif https://depot.galaxyproject.org/singul
 Galaxy project provides all Bioinformatics software from the BioContainers initiative as Singularity prebuilt images. If download and conversion time of images is an issue, this might be the best option for those working in the biomedical field.
 
 Link: <https://depot.galaxyproject.org/singularity/>
-
-**From Docker daemon**
-
-If you have a Docker daemon running in your machine, you can also build images from there without need to share them in a registry first.
-
-```console
-singularity build myubuntu.sif docker-daemon://myubuntu:latest
-```
-
-**From a Docker tar archive**
-
-If you saved a tar archive from a Docker image, you can also build images from there. This is useful if you might not have a Docker daemon running in the machine you intend to use Singularity.
-This is common in HPC environments.
-
-```console
-# Where you have a Docker daemon running
-docker save -o myubuntu.tar myubuntu:latest
-# Where you have Singularity
-singularity build myubuntu.sif docker-archive://myubuntu.tar
-```
-
 
 :::{admonition} **Difference between `singularity pull` and `singularity build`**
 :class: note
@@ -123,6 +102,31 @@ singularity build myubuntu.sif docker-archive://myubuntu.tar
 **Summary:**  
 Use `pull` to fetch ready-made images; use `build` to create or convert images, or to customize them.
 :::
+
+### From Docker daemon
+
+If you have a Docker daemon running in your machine, you can also build images from there without need to share them in a registry first.
+
+```console
+singularity build myubuntu.sif docker-daemon://myubuntu:latest
+```
+
+### From a Docker tar archive
+
+If you saved a tar archive from a Docker image, you can also build images from there. This is useful if you might not have a Docker daemon running in the machine you intend to use Singularity.
+This is common in HPC environments.
+
+```console
+# Where you have a Docker daemon running
+docker save -o myubuntu.tar myubuntu:latest
+# Where you have Singularity
+singularity build myubuntu.sif docker-archive://myubuntu.tar
+```
+
+:::{note}
+With Podman, that does not have a daemon service, that would be the regular way to convert to Singularity format. 
+:::
+
 
 ## Running and executing containers
 
