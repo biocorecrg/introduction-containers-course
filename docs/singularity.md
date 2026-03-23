@@ -110,8 +110,8 @@ singularity build myubuntu.sif docker-archive://myubuntu.tar
 ```
 
 
-:::{note}
-**Difference between `singularity pull` and `singularity build`:**
+:::{admonition} **Difference between `singularity pull` and `singularity build`**
+:class: note
 
 - `singularity pull` downloads a pre-built image from a remote source (such as a registry or URL) and saves it locally. It does not build or customize the image; you get the image as-is.
     - Example:  
