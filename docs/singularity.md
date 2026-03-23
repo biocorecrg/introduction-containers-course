@@ -83,7 +83,7 @@ singularity build mycontainer.sif docker://gitlab.hpc.crg.es:5005/myusername/myc
 ### Via Galaxy project prebuilt images
 
 ```console
-singularity pull --name fastqc-0.11.9.sif https://depot.galaxyproject.org/singularity/fastqc:0.11.9--0
+singularity pull fastqc-0.11.9.sif https://depot.galaxyproject.org/singularity/fastqc:0.11.9--0
 ```
 
 Galaxy project provides all Bioinformatics software from the BioContainers initiative as Singularity prebuilt images. If download and conversion time of images is an issue, this might be the best option for those working in the biomedical field.
