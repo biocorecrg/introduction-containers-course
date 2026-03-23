@@ -195,6 +195,13 @@ CMD ["https://upload.wikimedia.org/wikipedia/commons/7/77/Blue_Whale_Cartoon.jpg
 docker run f9f41698e2f8 https://upload.wikimedia.org/wikipedia/commons/c/c7/Whale_Shark_AdF.jpg
 ```
 
+:::{admonition} Try with volumes!
+:class: important
+
+Try the recipe above mounting downloads directory as a volume.
+:::
+
+
 **ENV, ARG**: run and build environment variables
 
 Difference between ARG and ENV explained here.
