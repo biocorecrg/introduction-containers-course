@@ -8,8 +8,10 @@
 
 ## Singularity architecture
 
-```{image} images/singularity_architecture.png
+```{figure} images/singularity_architecture.png
 :width: 800
+
+Comparison of three containerization/virtualization approaches: a **Virtual Machine** (full OS stack with hypervisor), **Docker** (shared kernel with daemon, layered images, root-owned), and **Singularity** (shared kernel, no daemon, single image file, user-space execution).
 ```
 
 
@@ -20,10 +22,9 @@
 | Avoids permission headaches and hacks       | Running Docker native images can take a while first time. Need to convert to Singularity format                                                  |
 | Image/container is a file (or directory)    |                                                   |
 | More easily portable                        |                                                   |
-| Two types of images: Read-only (production) |                                                   |
-| Writable (development, via sandbox) - you can expose the whole filesystem of the image in a directory for that         |                                                   |
+| Two types of images: Read-only (production) and Writable (development, via sandbox — exposes the full image filesystem as a directory) | |
 
-**Trivia**
+## Apptainer vs. Singularity
 
 Nowadays, there may be some confusion since there are two projects:
 
@@ -202,8 +203,9 @@ singularity build random_numbers.sif docker-daemon://random_numbers:latest
 singularity run random_numbers.sif
 # With an argument
 singularity run random_numbers.sif 10
-# If we try to exec it, though...
+# If we try to exec it, it will fail...
 singularity exec random_numbers.sif
+# We need to provide an executable as an argument
 singularity exec random_numbers.sif /random_numbers.bash
 ```
 
@@ -234,6 +236,17 @@ ls -l datatest
 :::{tip}
 
 Since Singularity mounts `$HOME` by default and since that directory can have a lot of user configuration files (e.g., in `.config` or `.local`), it can lead to unexpected issues (e.g., pre-installed software libraries in user directory). This can be solved using explicit `--home <CUSTOMHOME>` or even `--no-home` option.
+:::
+
+:::{tip}
+
+To selectively disable one or more default bind paths without affecting the others, use the `--no-mount` flag. For example, to prevent `$HOME` and `/tmp` from being mounted:
+
+```console
+singularity exec --no-mount home,tmp fastqc-0.11.9.sif fastqc
+```
+
+This is useful when you want finer-grained control than `--no-home`.
 :::
 
 ## Singularity tips
@@ -284,7 +297,7 @@ Normally at `/etc/apptainer/apptainer.conf` (`/etc/singularity/singularity.conf`
 #bind path = /scratch
 bind path = /etc/localtime
 bind path = /etc/hosts
-# I added this
+# Custom addition below
 bind path = /users
 ```
 
