@@ -25,12 +25,15 @@ from myst_parser import __version__
 from sphinx.application import Sphinx
 from sphinx.util.fileutil import copy_asset
 
-project = "Linux Containers Course 2026 - CRG"
+project = "Linux Containers Course"
 copyright = "2022-2026, Centre for Genomic Regulation (CRG)"
 author = "Toni Hermoso Pulido, Emilio Palumbo, Jose Antonio Espinosa-Carrasco"
 
 version = "2026"
 release = version
+
+html_title = "Linux Containers Course 2026 - CRG"
+html_short_title = "Linux Containers Course 2026"
 
 # -- Matomo configuration ---------------------------------------------------
 
