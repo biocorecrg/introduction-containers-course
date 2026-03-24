@@ -1,14 +1,5 @@
 <!-- filepath: _templates/layout.html -->
 {% extends "furo/page.html" %}
-<!-- Bioschemas jsonld -->
-{% block extrahead %}
-  {{ super() }}
-  <script type="application/ld+json">
-    {{ bioschemas_jsonld | safe }}
-  </script>
-{% endblock %}
-{% block scripts %}
-{{ super() }}
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];

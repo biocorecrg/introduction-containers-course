@@ -42,25 +42,8 @@ html_context = {
     "matomo_site_id": matomo_site_id,
 }
 
-# Handling bioschemas
-def convert_dates(obj):
-    if isinstance(obj, dict):
-        return {k: convert_dates(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [convert_dates(i) for i in obj]
-    elif isinstance(obj, (datetime.date, datetime.datetime)):
-        return obj.isoformat()
-    else:
-        return obj
-
-bioschemas_jsonld = None
-yaml_path = os.path.join(os.path.dirname(__file__), "bioschemas.yaml")
-if os.path.exists(yaml_path):
-    with open(yaml_path, "r") as f:
-        bioschemas_data = yaml.safe_load(f)
-    bioschemas_data = convert_dates(bioschemas_data)
-    bioschemas_jsonld = json.dumps(bioschemas_data, indent=2)
-    html_context["bioschemas_jsonld"] = bioschemas_jsonld
+# Adding Bioschemas globally
+bioschemas = ["bioschemas.yaml"]
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
