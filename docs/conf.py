@@ -33,7 +33,6 @@ version = "2026"
 release = version
 
 html_title = "Linux Containers Course 2026 - CRG"
-html_short_title = "Linux Containers Course 2026"
 
 # -- Matomo configuration ---------------------------------------------------
 
