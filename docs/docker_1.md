@@ -20,6 +20,7 @@ There is an increasing number of alternative container technologies and provider
 ```{image} http://apachebooster.com/kb/wp-content/uploads/2017/09/docker-architecture.png
 :width: 700
 ```
+[Source](https://nordicapis.com/api-driven-devops-spotlight-on-docker/)
 
 
 - Read-only templates.
