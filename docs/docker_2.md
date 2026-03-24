@@ -254,7 +254,7 @@ docker run --rm env-arg-example env
 seq 1 1000 | shuf | head -$1
 ```
 
-This script outputs random intergers from 1 to 1000: the number of integers selected is given as the first argument.
+This script outputs random integers from 1 to 1000: the number of integers selected is given as the first argument.
 
 - Write a recipe for an image:
 
@@ -370,7 +370,7 @@ docker push gitlab.hpc.crg.es:5005/myusername/myproject
 
 :::{tip}
 
-GitHub also provides its own [container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry). You can associated the resulting Docker image to its original code repository, for instance.
+GitHub also provides its own [container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry). You can associate the resulting Docker image to its original code repository, for instance.
 :::
 
 
