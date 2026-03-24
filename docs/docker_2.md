@@ -94,7 +94,7 @@ docker build --file Dockerfile .
 
 Syntax: `--file` / `-f`
 
-**.** stands for the context (in this case, current directory) of the build process. This makes sense if copying files from filesystem, for instance. **IMPORTANT**: Avoid contexts (directories) overpopulated with files (even if not actually used in the recipe).
+**.** stands for the context (in this case, current directory) of the build process. This makes sense if copying files from filesystem, for instance.
 
 You can define a specific name for the image during the build process.
 
@@ -129,7 +129,7 @@ docker run myubuntu
 **WORKDIR**: all subsequent actions will be executed in that working directory
 
 ```
-WORKDIR ~
+WORKDIR /root
 ```
 
 **ADD, COPY**: add files to the image filesystem
@@ -209,7 +209,7 @@ Difference between ARG and ENV explained here.
 - ARG values: available only while the image is built.
 
 - ENV values: available during the image build process and for future running containers. 
-    - It can be checked in a resulting running container by running env.
+    - It can be checked in a resulting running container by running `env`.
 
 
 ```dockerfile

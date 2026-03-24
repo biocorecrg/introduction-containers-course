@@ -336,7 +336,7 @@ docker rmi ubuntu:22.04
 
 Docker containers are fully isolated. It is necessary to mount volumes in order to handle input/output files.
 
-Syntax: `--volume` / `-v` *host_path:container_port*
+Syntax: `--volume` / `-v` *host_path:container_path*
 
 ```console
 mkdir data
