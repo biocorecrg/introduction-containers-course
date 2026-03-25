@@ -269,14 +269,14 @@ This script outputs random integers from 1 to 1000: the number of integers selec
 ```dockerfile
 FROM almalinux:9
 
-# Copy script from host to image
-COPY random_numbers.bash .
+# Copy script from host to image - we place in a typical directory
+COPY random_numbers.bash /usr/local/bin/random_numbers
 
 # Make script executable
-RUN chmod +x random_numbers.bash
+RUN chmod +x /usr/local/bin/random_numbers
 
 # As the container starts, "random_numbers.bash" is run
-ENTRYPOINT ["/usr/bin/bash", "random_numbers.bash"]
+ENTRYPOINT ["/usr/local/bin/random_numbers"]
 
 # default argument (that can be changed on the command line)
 CMD ["2"]
