@@ -422,4 +422,9 @@ docker system prune -a
 We will use some of the created Docker images in the next Singularity lesson, so you might not want to remove them now!
 :::
 
+:::{warning}
+
+In `$HOME/.docker` directory, normally in `$HOME/.docker/config.json`, you can find the credentials we stored for the remote registry. We can remove that file as well at the end of the course.
+:::
+
 

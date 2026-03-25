@@ -274,6 +274,12 @@ $HOME/.singularity
 - It stores cached images from registries, instances, etc.
 - If problems may be a good place to clean. When running `sudo`, \$HOME is /root.
 
+:::{warning}
+
+There you can find the credentials we stored for the remote registry (in `remote.yaml`). We can remove it as well.
+
+:::
+
 
 ### Global configuration
 
